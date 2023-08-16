@@ -1,7 +1,7 @@
-# GoLang Tutorial
+# Go Tutorial
 
-Learn GoLang with me step by step.
+Learn Go with me step by step.
 
-How to initiate a GoLang module:
+How to initiate a Go module:
 
 go mod init example/tutorial

@@ -16,6 +16,10 @@ func spacedPrint(str string) {
 func main() {
 	intArr := [3]int{1, 2, 3}
 
+	const variable0 = 4
+
+	fmt.Printf("\n%v\n", variable0)
+
 	emp1 := Emplyee{id: 1101, fname: "Kweayon", lname: "Clark", salary: 130000}
 
 	spacedPrint("Hello Universe.")

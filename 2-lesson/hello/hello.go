@@ -9,5 +9,5 @@ import (
 
 func main() {
 	fmt.Println("Importing custom modules")
-	greetings.Hello()
+	fmt.Println(greetings.Hello("Kweayon"))
 }

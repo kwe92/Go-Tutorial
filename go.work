@@ -1,9 +1,11 @@
 go 1.21.0
 
-use ./1-lesson
+use ./lesson_0
 
-use ./2-lesson/greetings
+use ./lesson_1
 
-use ./2-lesson/hello
+use ./lesson_2/greetings
 
-use ./3-lesson
+use ./lesson_2/hello
+
+use ./lesson_3

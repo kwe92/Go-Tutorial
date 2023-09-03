@@ -1,6 +1,6 @@
 go 1.21.0
 
-use ./1-lesson/using_external_packages
+use ./1-lesson
 
 use ./2-lesson/greetings
 

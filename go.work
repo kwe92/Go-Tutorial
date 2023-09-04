@@ -8,4 +8,8 @@ use ./lesson_2/greetings
 
 use ./lesson_2/hello
 
-use ./lesson_3
+use ./lesson_3/postgres_example_0
+
+use ./lesson_3/postgres_example_1
+
+use ./lesson_3/postgres_example_2

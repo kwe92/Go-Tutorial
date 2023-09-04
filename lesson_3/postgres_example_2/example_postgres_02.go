@@ -43,7 +43,7 @@ func main() {
 		roll_number: 1961,
 	}
 
-	// dynamic string iterpolation.
+	// psql dynamic connection string.
 	psqlConn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
 		HOST, PORT, USERNAME, PASSWORD, DBNAME)
 
@@ -53,20 +53,19 @@ func main() {
 	// dynamic insert statement.
 	insertStatement1 := `insert into students (name, roll_number, created_date) values ($1, $2, $3);`
 
+	// dynamic insert statement.
 	insertStatement2 := `insert into students (name, roll_number, created_date) values ($1, $2, $3);`
 
-	// update statement.
+	// dynamic update statement.
 	updateStatement0 := `update students set name = $1, roll_number = $2, created_date = $3 where roll_number = $4;`
 
-	// delete statement.
+	// dynamic delete statement.
 	deleteStatement0 := `delete from students where roll_number = $1;`
 
 	// select query statement.
-
 	selectAll := `select * from students;`
 
-	// Slice of students
-
+	// Slice of students.
 	students := make([]Student, 0)
 
 	// Opens database connection.
@@ -79,7 +78,7 @@ func main() {
 
 	CheckError(err)
 
-	fmt.Println("\nsuccessful connection!")
+	fmt.Println("\nSuccessful connection!")
 
 	// clear table of data.
 	_, err = db.Exec(TruncateTable(TABLE0))
@@ -93,9 +92,9 @@ func main() {
 
 	CheckError(err)
 
-	fmt.Println("\nsuccessful static insert!")
+	fmt.Println("\nSuccessful static insert!")
 
-	// execute dynamic insert statement with additional interpolated arguments.
+	// execute dynamic insert statements with additional interpolated arguments.
 	_, err = db.Exec(
 		insertStatement1,
 		student0.name,
@@ -114,7 +113,7 @@ func main() {
 
 	CheckError(err)
 
-	fmt.Println("\nsuccessful dynamic insert!")
+	fmt.Println("\nSuccessful dynamic insert!")
 
 	// execure update statement with interpolated arguments.
 	_, err = db.Exec(
@@ -127,7 +126,7 @@ func main() {
 
 	CheckError(err)
 
-	fmt.Printf("\nupdated record %d successfully!", student0.roll_number)
+	fmt.Printf("\nUpdated record %d successfully!", student0.roll_number)
 
 	// execute delete statement with interpolated arguments.
 	_, err = db.Exec(deleteStatement0, 9999)
@@ -138,18 +137,21 @@ func main() {
 
 	// ?---------------SELECT DATA AND ENUMERATE THROUGH ROWS---------------? //
 
+	// executes a query that returns rows to be enumerated in O(n) linear time
 	rows, err := db.Query(selectAll)
 	CheckError(err)
 
 	// close iteration of rows when the program ends.
 	defer rows.Close()
 
+	// enumerate through rows in O(n) linear time until the list is exhausted.
 	for rows.Next() {
 		var id int
 		var name string
 		var roll_number int
 		var created_date string
 
+		//  scan a copy of current columns rows into pointers | number of pointers must match the number of columns specified in db.Query.
 		err = rows.Scan(
 			&id,
 			&roll_number,
@@ -180,6 +182,7 @@ func main() {
 
 		fmt.Printf("\n\nstudent: %v", student)
 
+		// append all students to a Slice `Mutable Array`.
 		students = append(students, student)
 
 	}

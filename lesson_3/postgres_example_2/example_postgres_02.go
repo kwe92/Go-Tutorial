@@ -10,8 +10,10 @@ import (
 
 // Student represents a student record.
 type Student struct {
-	name        string
-	roll_number int
+	id           int
+	name         string
+	roll_number  int
+	created_date string
 }
 
 func main() {
@@ -36,6 +38,11 @@ func main() {
 		roll_number: 121,
 	}
 
+	student2 := Student{
+		name:        "Carl Jung",
+		roll_number: 1961,
+	}
+
 	// dynamic string iterpolation.
 	psqlConn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
 		HOST, PORT, USERNAME, PASSWORD, DBNAME)
@@ -46,11 +53,21 @@ func main() {
 	// dynamic insert statement.
 	insertStatement1 := `insert into students (name, roll_number, created_date) values ($1, $2, $3);`
 
+	insertStatement2 := `insert into students (name, roll_number, created_date) values ($1, $2, $3);`
+
 	// update statement.
 	updateStatement0 := `update students set name = $1, roll_number = $2, created_date = $3 where roll_number = $4;`
 
 	// delete statement.
 	deleteStatement0 := `delete from students where roll_number = $1;`
+
+	// select query statement.
+
+	selectAll := `select * from students;`
+
+	// Slice of students
+
+	students := make([]Student, 0)
 
 	// Opens database connection.
 	db, err := sql.Open("postgres", psqlConn)
@@ -88,6 +105,15 @@ func main() {
 
 	CheckError(err)
 
+	_, err = db.Exec(
+		insertStatement2,
+		student2.name,
+		student2.roll_number,
+		GetDate(),
+	)
+
+	CheckError(err)
+
 	fmt.Println("\nsuccessful dynamic insert!")
 
 	// execure update statement with interpolated arguments.
@@ -109,6 +135,56 @@ func main() {
 	CheckError(err)
 
 	fmt.Printf("\n\ndeleted record: %d successfully!", 9999)
+
+	// ?---------------SELECT DATA AND ENUMERATE THROUGH ROWS---------------? //
+
+	rows, err := db.Query(selectAll)
+	CheckError(err)
+
+	// close iteration of rows when the program ends.
+	defer rows.Close()
+
+	for rows.Next() {
+		var id int
+		var name string
+		var roll_number int
+		var created_date string
+
+		err = rows.Scan(
+			&id,
+			&roll_number,
+			&name,
+			&created_date,
+		)
+
+		CheckError(err)
+
+		fmt.Printf("\n\nroll_number:%d\nname: %s", roll_number, name)
+	}
+
+	// ?------------------ROW ENUMERATION WITH STRUCT------------------? //
+
+	rows, err = db.Query(selectAll)
+
+	for rows.Next() {
+		var student Student
+
+		err = rows.Scan(
+			&student.id,
+			&student.roll_number,
+			&student.name,
+			&student.created_date,
+		)
+
+		CheckError(err)
+
+		fmt.Printf("\n\nstudent: %v", student)
+
+		students = append(students, student)
+
+	}
+
+	fmt.Printf("\n\nstudents slice: %v", students)
 
 	// closes previously opened database conection.
 	db.Close()

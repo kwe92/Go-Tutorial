@@ -31,7 +31,7 @@ func init() {
 
 	CheckError(err)
 
-	// closes a database.
+	// closes a database once the entire script completes.
 	defer db.Close()
 
 	// check if connection is stil alive.

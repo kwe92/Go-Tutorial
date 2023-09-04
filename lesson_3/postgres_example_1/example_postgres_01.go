@@ -28,7 +28,7 @@ func main() {
 
 	CheckError(err)
 
-	// close database
+	// close database once entire script completes.
 	defer db.Close()
 
 	err = db.Ping()

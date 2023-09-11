@@ -13,3 +13,7 @@ use ./lesson_3/postgres_example_0
 use ./lesson_3/postgres_example_1
 
 use ./lesson_3/postgres_example_2
+
+use ./lesson_3/postgres_example_3
+
+use ./lesson_4/working_with_pointers_00

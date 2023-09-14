@@ -25,5 +25,7 @@ func PrintArea(s Shape) {
 func main() {
 	c := Circle{Radius: 6}
 
-	PrintArea(c)
+	s := Shape(c)
+
+	PrintArea(s)
 }

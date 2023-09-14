@@ -17,3 +17,5 @@ use ./lesson_3/postgres_example_2
 use ./lesson_3/postgres_example_3
 
 use ./lesson_4/working_with_pointers_00
+
+use ./lesson_5

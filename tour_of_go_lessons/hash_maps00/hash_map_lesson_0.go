@@ -26,7 +26,7 @@ func main() {
 
 }
 
-// updateIfExists updates a value at a specified key if it exists.
+// updateIfExists updates a value at a specified key if it exists
 func updateIfExists(m *map[string]interface{}, key string, value interface{}) bool {
 
 	var isPresent bool

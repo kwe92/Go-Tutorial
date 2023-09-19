@@ -2,7 +2,11 @@ package main
 
 import "fmt"
 
-// similar to an abstract interface, no concrete implementation is needed for Shape struct itsself.
+// Interface Type
+
+//   - a set of method signatures
+//   - similar to an abstract class in other object oriented languages
+//   - no concrete implementation is needed for Shape interface itsself.
 
 type Shape interface {
 	Area() float64
@@ -14,18 +18,18 @@ type Circle struct {
 
 // implementation of Area method for the Circle struct
 
-func (c Circle) Area() float64 {
+func (c *Circle) Area() float64 {
 	return 3.14 * c.Radius * c.Radius
 }
 
 func PrintArea(s Shape) {
-	fmt.Println("\nArea:", s.Area(), "\n")
+	fmt.Printf("\nArea: %.2f\n\n", s.Area())
 }
 
 func main() {
 	c := Circle{Radius: 6}
 
-	s := Shape(c)
+	s := Shape(&c)
 
 	PrintArea(s)
 }

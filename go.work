@@ -19,3 +19,13 @@ use ./lesson_3/postgres_example_3
 use ./lesson_4/working_with_pointers_00
 
 use ./lesson_5
+
+use ./random_exploration
+
+use ./tour_of_go_lessons/hash_maps00
+
+use ./tour_of_go_lessons/hash_maps01
+
+use ./tour_of_go_lessons/functions00
+
+use ./tour_of_go_lessons/functions01

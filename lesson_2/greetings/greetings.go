@@ -7,7 +7,7 @@ func Hello(name string) (msg string) {
 	return message
 }
 
-// TODO: Maybe transfer to written notes
+// TODO: Refactor comments
 
 // Summary
 
@@ -54,3 +54,19 @@ func Hello(name string) (msg string) {
 //       - the string is then returned
 //       - slightly confusing by its name but it does not
 //         actually print anything to the terminal
+
+// Define Type
+
+//   - types are defined with the type keyword
+
+// Declare Variable
+
+//   - use the var keyword to declare a variable
+
+// Initialize Variable
+
+//   - after declaration variables can be initialized `assigned a value`
+
+// Declaring and Initializing literals
+
+//   - you can declare and initialize variables with type literals

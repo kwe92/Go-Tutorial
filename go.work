@@ -29,3 +29,15 @@ use ./tour_of_go_lessons/hash_maps01
 use ./tour_of_go_lessons/functions00
 
 use ./tour_of_go_lessons/functions01
+
+use ./tour_of_go_lessons/functions02
+
+use ./tour_of_go_lessons/structs_and_methods00
+
+use ./tour_of_go_lessons/structs_and_methods01
+
+use ./tour_of_go_lessons/structs_and_methods02
+
+use ./tour_of_go_lessons/interfaces00
+
+use ./tour_of_go_lessons/interfaces01

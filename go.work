@@ -41,3 +41,11 @@ use ./tour_of_go_lessons/structs_and_methods02
 use ./tour_of_go_lessons/interfaces00
 
 use ./tour_of_go_lessons/interfaces01
+
+use ./tour_of_go_lessons/interfaces02
+
+use ./tour_of_go_lessons/interfaces03
+
+use ./tour_of_go_lessons/interfaces04
+
+use ./tour_of_go_lessons/interfaces05

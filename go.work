@@ -49,3 +49,19 @@ use ./tour_of_go_lessons/interfaces03
 use ./tour_of_go_lessons/interfaces04
 
 use ./tour_of_go_lessons/interfaces05
+
+use ./tour_of_go_lessons/type_assertion00
+
+use ./tour_of_go_lessons/type_assertion01
+
+use ./tour_of_go_lessons/stringer00
+
+use ./tour_of_go_lessons/stringer01
+
+use ./tour_of_go_lessons/errors00
+
+use ./tour_of_go_lessons/errors01
+
+use ./tour_of_go_lessons/reader00
+
+use ./tour_of_go_lessons/reader01

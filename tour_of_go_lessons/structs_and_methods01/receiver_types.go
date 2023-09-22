@@ -38,13 +38,14 @@ func main() {
 
 //   - methods can be declared with value receivers or pointer receivers
 //   - pointer receivers are typically chosen over value receivers
+//   - the type of receiver implemented dictates if a type received is mutable or immutable
 
 // Value Receivers
 
-//   - value receivers are copies and the original object is rendered immutable by a method
-//   - copies of objects also allocate new memory for that object making value receivers less efficient
+//   - value receivers are copies and the original object remains immutable by the method
+//   - copies of objects allocate new memory for that object making value receivers less efficient
 
 // Pointer Receivers
 
-//   - pointer receivers point to an object in memory rendering them muttable to a method
-//   - preffered over value receivers as they are more memory efficient
+//   - pointer receivers point to an object in memory rendering them mutable to a method
+//   - preferred over value receivers as they are more memory efficient

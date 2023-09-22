@@ -48,11 +48,11 @@ func main() {
 //   - methods with pointer receivers take either
 //     a value or a pointer receiver when invoked
 
-//   - v.Scale(5) == (&v).Scale(5) in Go interpreter
+//   - v.Scale(5) == (&v).Scale(5) to the Go interpreter
 
 //   - the equivalent happens in reverse
 
-//   - functions with value arguments must take a value
+//   - functions with value arguments must take values
 
-//   - methods with value receivers take either
+//   - methods with value receivers can take either
 //     a value or a pointer receiver when invoked

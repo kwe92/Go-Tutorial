@@ -49,12 +49,11 @@ func main() {
 //   - Methods can be attached to any type that can be defined:
 //       ~ (structs, slices, arrays, floats, maps, etc)
 //   - similar to extension methods in Dart with a caveat:
-//       ~ the type definition and attached method implementation must be in the same package
+//       ~ type definition and attached method implementation must be in the same package
 
 // Method Receiver
 
 //   - Prefixes function name
-//   - contains variable and type of attached method
 //   - example (The Cerberus Function):
-//       ~ func (t DefinedType) method_name(param0 data_type) (return_data_type,  return_data_type) {...}
-//
+
+//        func (t DefinedType) method_name(param0 data_type) (return_data_type,  return_data_type) {...}

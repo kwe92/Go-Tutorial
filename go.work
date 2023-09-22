@@ -65,3 +65,5 @@ use ./tour_of_go_lessons/errors01
 use ./tour_of_go_lessons/reader00
 
 use ./tour_of_go_lessons/reader01
+
+use ./tour_of_go_lessons/reader02

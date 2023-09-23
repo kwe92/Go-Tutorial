@@ -3,6 +3,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"io"
 	"os"
@@ -52,7 +53,7 @@ func main() {
 
 	checkError(err)
 
-	// allocate and initialize Slice of bytes of size 8
+	// allocate and initialize Slice of bytes with a size of 8
 
 	b0 := make([]byte, 8)
 
@@ -70,7 +71,12 @@ func main() {
 
 	}
 
-	o0, err := file.Seek(6, 0)
+	// Seek to a known location within a file, skipping elements
+
+	offset := int64(6)
+
+	// Set the offset for the next read of a file
+	o0, err := file.Seek(offset, 0)
 
 	checkError(err)
 
@@ -83,6 +89,31 @@ func main() {
 	fmt.Printf("%d bytes @ %d: ", n0, o0)
 
 	fmt.Printf("%v\n", string(b1[:n0]))
+
+	o1, err := file.Seek(offset, 0)
+
+	checkError(err)
+
+	b2 := make([]byte, 4)
+
+	n1, err := io.ReadAtLeast(file, b2, 1)
+
+	checkError(err)
+
+	fmt.Printf("%d bytes @ %d: %s\n", n1, o1, bytesToString(b2))
+
+	// Rewinding Using Seek(0, 0)
+
+	// return to the beginning of a file
+	_, err = file.Seek(0, 0)
+
+	checkError(err)
+
+	reader := bufio.NewReader(file)
+
+	b3, err := reader.Peek(6)
+
+	fmt.Printf("6 bytes: %s\n", bytesToString(b3))
 
 }
 
@@ -104,3 +135,7 @@ func bytesToString(bytes []byte) string {
 
 //   - ReadFile is part of the `os` package provided the Go standard library
 //   - ReadFile reads a file and return the files contents as a Slice of bytes
+
+// bufio.NewReader
+
+//   - efficient for many small reads

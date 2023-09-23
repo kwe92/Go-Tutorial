@@ -1,4 +1,4 @@
-//  TODO: add comments
+//  TODO: Edit Comments
 
 package main
 
@@ -49,6 +49,7 @@ func main() {
 
 	fmt.Printf("bytes: %d | chars: %d\n\n", len(alphabetData), len(alpha_string))
 
+	// Open file for reading
 	file, err := os.Open(someFile)
 
 	checkError(err)
@@ -115,6 +116,9 @@ func main() {
 
 	fmt.Printf("6 bytes: %s\n", bytesToString(b3))
 
+	// close the file when you are done
+	file.Close()
+
 }
 
 // checkError checks for an error, stops execution if an error evaluates to not null and prints the error.
@@ -136,6 +140,8 @@ func bytesToString(bytes []byte) string {
 //   - ReadFile is part of the `os` package provided the Go standard library
 //   - ReadFile reads a file and return the files contents as a Slice of bytes
 
-// bufio.NewReader
+// bufio
 
+//   - implements a buffered reader
 //   - efficient for many small reads
+//   - provides additional reading methods

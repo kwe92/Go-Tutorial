@@ -1,5 +1,3 @@
-//  TODO: add comments
-
 package main
 
 import (

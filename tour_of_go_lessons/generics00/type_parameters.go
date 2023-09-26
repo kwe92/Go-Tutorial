@@ -31,7 +31,7 @@ func main() {
 //   - allows Go functions to work with multiple types
 //   - type parameters appear between the function name and function parameters
 //     placed between brackets
-//   - parameterized types with constraints
+//   - parameterized functions with constraints
 
 // comparable built-in constraint
 

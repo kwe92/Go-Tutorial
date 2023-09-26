@@ -70,3 +70,5 @@ func Hello(name string) (msg string) {
 // Declaring and Initializing literals
 
 //   - you can declare and initialize variables with type literals
+
+// The _ means to import a package purely for its initialization side effects.

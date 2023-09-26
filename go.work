@@ -73,3 +73,7 @@ use ./tour_of_go_lessons/reader03
 use ./tour_of_go_lessons/images00
 
 use ./tour_of_go_lessons/images01
+
+use ./tour_of_go_lessons/generics00
+
+use ./tour_of_go_lessons/generics01

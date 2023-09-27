@@ -1,3 +1,5 @@
+// TODO: Add comments
+
 package main
 
 import (
@@ -7,8 +9,10 @@ import (
 
 func main() {
 
+	// register handler to path
 	http.HandleFunc("/", homeRouteHandler)
 
+	// start HTTP server on port 8080, using the default ServeMux
 	err := http.ListenAndServe(":8080", nil)
 
 	if err != nil {
@@ -19,8 +23,10 @@ func main() {
 
 }
 
+// homeRouteHandler handles requests to the home path.
 func homeRouteHandler(w http.ResponseWriter, r *http.Request) {
 
+	// set response headers
 	w.Header().Set("Content-Type", "text/plain")
 
 	w.Header().Set("X-Custom-Header", "In the beginning was the Word.")
@@ -29,9 +35,14 @@ func homeRouteHandler(w http.ResponseWriter, r *http.Request) {
 
 	responseData = []byte("Why are ye fearful, O ye of little faith?\n\nThen he arose, and rebuked the winds and the sea; and there was a great calm.")
 
+	// write data to the response body
 	w.Write(responseData)
 
+	// write response status code
 	w.WriteHeader(http.StatusOK)
+
+	// access request URL
+	requestURL := r.URL
 
 	host := r.URL.Host
 
@@ -43,6 +54,8 @@ func homeRouteHandler(w http.ResponseWriter, r *http.Request) {
 
 	query := r.URL.Query()
 
+	fmt.Println("\nRequest URL: ", requestURL)
+
 	fmt.Printf("\nHost: %v\n\nHost Name: %v\n\nPath: %v\n\nPort: %v\n\nQuery: %v",
 		host,
 		hostName,
@@ -51,10 +64,12 @@ func homeRouteHandler(w http.ResponseWriter, r *http.Request) {
 		query,
 	)
 
+	// access request header
 	requestHeader := r.Header
 
 	fmt.Println("\nRequest Header: ", requestHeader)
 
+	// Read request body
 	requestBody := make([]byte, r.ContentLength)
 
 	_, err := r.Body.Read(requestBody)

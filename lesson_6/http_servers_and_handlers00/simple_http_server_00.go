@@ -6,10 +6,14 @@ import (
 )
 
 func main() {
+
+	// declare and initialize a ServeMux instance
 	mux := http.NewServeMux()
 
+	// registerhandler to path
 	mux.Handle("/", &home{})
 
+	// start HTTP server on port 8080 using the ServeMux instance as a a handler
 	http.ListenAndServe(":8080", mux)
 
 	fmt.Println("Server has started")
@@ -30,9 +34,9 @@ func (h *home) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // ServerMux
 
 //   - an HTTP multiplexer
-//   - register a collection of paths to handlers and matches them in O(n)
+//   - register a path to handler in a collection and match them in O(n) `linear-time`
 //   - incoming request URLs are matched to registered paths
-//     and their associated route handler executes the route handler
+//     and their associated route handler is executed for each request
 
 // http.NewServeMux().Handle()
 

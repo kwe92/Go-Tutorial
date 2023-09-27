@@ -77,3 +77,11 @@ use ./tour_of_go_lessons/images01
 use ./tour_of_go_lessons/generics00
 
 use ./tour_of_go_lessons/generics01
+
+use ./lesson_6/http_servers_and_handlers00
+
+use ./lesson_6/http_servers_and_handlers01
+
+use ./lesson_6/http_servers_and_handlers02
+
+use ./lesson_6/http_server_and_default_mux

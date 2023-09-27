@@ -8,14 +8,14 @@ import (
 	"reflect"
 )
 
-type LinkedList[T any] struct {
-	next *LinkedList[T]
+type Node[T any] struct {
+	next *Node[T]
 	val  T
 }
 
-func insertAtBeginning[T any](node LinkedList[T], val T) LinkedList[T] {
+func insertAtBeginning[T any](node Node[T], val T) Node[T] {
 
-	newNode := LinkedList[T]{val: val}
+	newNode := Node[T]{val: val}
 
 	if reflect.TypeOf(node.val).Kind() == reflect.Int {
 		if any(node.val).(int) == 0 || any(node.val) == nil {
@@ -30,7 +30,7 @@ func insertAtBeginning[T any](node LinkedList[T], val T) LinkedList[T] {
 }
 
 func main() {
-	linkedList := LinkedList[int]{}
+	linkedList := Node[int]{}
 
 	newList0 := insertAtBeginning(linkedList, 20)
 

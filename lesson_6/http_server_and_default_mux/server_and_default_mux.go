@@ -83,3 +83,8 @@ func homeRouteHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("\nRequest Body: ", r.Body)
 
 }
+
+// Default ServeMux
+
+//   - a predefined http.ServeMux
+//   - called by all http.Handle methods

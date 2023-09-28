@@ -65,16 +65,6 @@ func main() {
 //     - GO removes the declaration of intent like the implements keyword that you may find in other object oriented languages
 //     - If a type implements an interfaces method signatures then it can be considered an implementation of that interface implicitly
 
-// Explination of Above Code
-
-//   1. defined a type Stringer
-//   2. implemented a ToString method
-//     2.a the if statement does a type assertion checking if the value is of type Stringer
-//     2.b if the predicate returns true then the string method is invoked on that value
-//   3. if the if statements predicate returns false then a switch statement does a type assertion against with various cases
-//   4. the type Binary is defined as a uint64 `unsigned 64bit integer`
-//   5. the methods String and Get are implemented for the type Binary
-
 // Type Conversion
 
 //   - type conversion can be done with both primative and defined types
@@ -87,3 +77,13 @@ func main() {
 // strconv Package
 
 //   - A package used for string conversion
+
+// Explination of Above Code
+
+//   1. defined a type Stringer
+//   2. implemented a ToString method
+//     2.a the if statement does a type assertion checking if the value is of type Stringer
+//     2.b if the predicate returns true then the string method is invoked on that value
+//   3. if the if statements predicate returns false then a switch statement does a type assertion against with various cases
+//   4. the type Binary is defined as a uint64 `unsigned 64bit integer`
+//   5. the methods String and Get are implemented for the type Binary

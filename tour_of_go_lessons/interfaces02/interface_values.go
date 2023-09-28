@@ -54,7 +54,7 @@ func (m *MyValue) Get() int {
 
 // Interface Values
 
-//   - An interfaces value can be viewed as a tuple of pointers or a two word pointer pairs in memory
+//   - An interfaces value can be viewed as a tuple of pointers or a two word pointer pair in memory
 //     comprised of the value and the values concrete type --> (value, data_type)
 //   - the pointer to the data type becomes a list of function pointers
 //   - the value is a pointer to a copy of the original value? Check this for validation

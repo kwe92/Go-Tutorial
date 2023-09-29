@@ -1,36 +1,62 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 	"net/http"
+	"time"
 )
 
 func main() {
 
 	url := "https://vast-puce-mite-fez.cyclic.app/animeme"
 
-	response0, err := http.Get(url)
+	client := http.Client{Timeout: 10 * time.Second}
+
+	response0, err := client.Get(url)
 
 	checkError(err)
 
-	//? Unmarshal / Decode io.ReadCloser With Custom Implementation
+	//? Read content from io.ReadCloser With Custom Implementation
 
-	fmt.Printf("\nresponse:\n\n%+v\n\n", response0)
+	fmt.Printf("\nresponse0:\n\n%+v\n\n", response0)
 
-	fmt.Printf("\nresponse body:\n\n%+v\n\n", response0.Body)
+	fmt.Printf("\nresponse0 body:\n\n%+v\n\n", response0.Body)
 
-	buf := make([]byte, response0.ContentLength)
+	response0Bytes := make([]byte, response0.ContentLength)
 
-	ReadAndClose(response0.Body, buf)
+	ReadAndClose(response0.Body, response0Bytes)
 
-	fmt.Printf("\nresponse body as Slice of bytes:\n\n%+v\n\n", buf)
+	fmt.Printf("\nresponse0 body as Slice of bytes:\n\n%+v\n\n", response0Bytes)
 
-	fmt.Printf("\nresponse body as string:\n\n%+v\n\n", string(buf))
+	fmt.Printf("\nresponse0 body as string:\n\n%+v\n\n", string(response0Bytes))
 
-	//? Unmarshal / Decode io.ReadCloser With ioutils Helper Package
+	//? Read content from io.ReadCloser With io Package
 
-	// response1, err := http.Get(url)
+	response1, err := client.Get(url)
+
+	response1Bytes, err := io.ReadAll(response1.Body)
+
+	checkError(err)
+
+	response1StringRep := string(response1Bytes)
+
+	fmt.Printf("\nresponse1 string representation:\n\n%+v\n\n", response1StringRep)
+
+	//? Read content from io.ReadCloser with bytes package
+
+	response2, err := client.Get(url)
+
+	buffer := bytes.NewBuffer(make([]byte, response2.ContentLength))
+
+	_, err = buffer.ReadFrom(response2.Body)
+
+	checkError(err)
+
+	response2StringRep := buffer.String()
+
+	fmt.Printf("\nresponse2 string representation:\n\n%+v\n\n", response2StringRep)
 
 }
 
@@ -76,7 +102,7 @@ func checkError(err error) {
 //   - the content can not be represented as a string until it is unmarshalled or decoded
 //   - there are several ways to unmarshal an io.ReadCloser
 
-// Least Efficient Ways:
+// Least Efficient Ways From Worst to Best:
 
 // Implement ReadAndClose function
 
@@ -84,8 +110,10 @@ func checkError(err error) {
 //   - and continuously reads into the Slice of bytes until the end of the file reached
 //   - the Slice of bytes can then be converted to a string with type conversion
 
-// Use ioutils helper package
+// Use io package
 
-//   - pass the io.ReadCloser as an argument to ioutils.ReadAll
+//   - pass the io.ReadCloser as an argument to io.ReadAll
 //     which returns a Slice of bytes the length of the content and any errors encountered
 //   - the Slice of bytes can then be converted to a string with type conversion
+
+// Use bytes package to Write Contents into in-memory Buffer

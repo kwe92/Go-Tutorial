@@ -1,7 +1,10 @@
+// TODO: add explanitory comments
+
 package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -58,8 +61,38 @@ func main() {
 
 	fmt.Printf("\nresponse2 string representation:\n\n%+v\n\n", response2StringRep)
 
+	//? Read content from io.ReadCloser with json package
+
+	// if you know the shape of the request it is best to use a struct
+	type AnimeMeme struct {
+		Title string `json:"title"`
+		Url   string `json:"url"`
+	}
+
+	var jsonData any
+
+	var animeMeme AnimeMeme
+
+	response3, err := client.Get(url)
+
+	checkError(err)
+
+	response4, err := client.Get(url)
+
+	checkError(err)
+
+	// use json.NewDecoder to buffer io.ReadCloser and Decode to store its contents in a type
+	json.NewDecoder(response3.Body).Decode(&jsonData)
+
+	json.NewDecoder(response4.Body).Decode(&animeMeme)
+
+	fmt.Printf("\nresponse3 GO data structure representation:\n\n%+v\n\n", jsonData)
+
+	fmt.Printf("\nresponse3 GO struct representation:\n\n%+v\n\n", animeMeme)
+
 }
 
+// ReadAndClose continuously reads the contents of r into buf until the end of the file is reached
 func ReadAndClose(r io.ReadCloser, buf []byte) (n int, err error) {
 
 	for len(buf) > 0 {
@@ -102,7 +135,7 @@ func checkError(err error) {
 //   - the content can not be represented as a string until it is unmarshalled or decoded
 //   - there are several ways to unmarshal an io.ReadCloser
 
-// Least Efficient Ways From Worst to Best:
+// Ways to Read content from an io.ReadCloser | Worst to Best:
 
 // Implement ReadAndClose function
 
@@ -116,4 +149,8 @@ func checkError(err error) {
 //     which returns a Slice of bytes the length of the content and any errors encountered
 //   - the Slice of bytes can then be converted to a string with type conversion
 
-// Use bytes package to Write Contents into in-memory Buffer
+// Use bytes package
+
+//   - write content of an io.ReadCloser into an in-memory buffer that grows to the size of the content
+
+// Use json Package

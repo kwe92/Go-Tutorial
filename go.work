@@ -2,6 +2,8 @@ go 1.21.0
 
 use ./lesson_0
 
+use ./lesson_0/data_structures
+
 use ./lesson_1
 
 use ./lesson_2/greetings
@@ -17,6 +19,8 @@ use ./lesson_3/postgres_example_2
 use ./lesson_3/postgres_example_3
 
 use ./lesson_4/working_with_pointers_00
+
+use ./tour_of_go_lessons/reader04
 
 use ./lesson_5
 

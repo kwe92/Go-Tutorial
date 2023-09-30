@@ -178,4 +178,4 @@ func checkError(err error) {
 
 // Use json Package
 
-//   -
+//   - Decode / unmarshal the response into a target variable

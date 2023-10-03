@@ -1,8 +1,9 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"net/http"
+	"net/http/httptest"
 	"testing"
 )
 
@@ -23,13 +24,56 @@ func Test_IsPrimeHandler(t *testing.T) {
 		{
 			name: "must return http.StatusBadRequest for an invalid number",
 			args: func(t *testing.T) args {
-				return args{}
+
+				req, err := http.NewRequest("GET", "/check-is-prime", nil)
+
+				if err != nil {
+					log.Fatalf("Failed to create request: %s", err.Error())
+				}
+
+				queryParameterMap := req.URL.Query()
+
+				queryParameterMap.Add("number", "not_number")
+
+				req.URL.RawQuery = queryParameterMap.Encode()
+
+				return args{
+					req: req,
+				}
 			},
-			wantCode: 200,
-			wantBody: "",
+			wantCode: http.StatusBadRequest,
+			// ? why add a new line?
+			wantBody: "invalid number\n",
 		},
 	}
 
-	fmt.Printf("format", handlers, tests)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+
+			tArgs := tt.args(t)
+
+			response := httptest.NewRecorder()
+
+			handlers.ServeHTTP(response, tArgs.req)
+
+			if response.Result().StatusCode != tt.wantCode {
+				t.Fatalf("the status code should be [%d] but received [%d]",
+					response.Result().StatusCode,
+					tt.wantCode,
+				)
+			}
+
+			if response.Body.String() != tt.wantBody {
+				t.Fatalf("the response body should be [%s] but received [%s]",
+					response.Body.String(),
+					tt.wantBody,
+				)
+			}
+		})
+	}
 
 }
+
+// Testing HTTP Handlers
+
+//   - build a request and compare response

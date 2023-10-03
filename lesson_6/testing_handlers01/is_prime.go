@@ -5,6 +5,7 @@ import (
 	"log"
 	"math/big"
 	"net/http"
+	"net/url"
 	"strconv"
 )
 
@@ -13,11 +14,15 @@ const (
 )
 
 func main() {
+
 	mux := setUpMux()
+
+	fmt.Println("Server started successfully!")
 
 	log.Fatal(http.ListenAndServe(apiAddress, mux))
 }
 
+// setUpMux registers handlers to patterns and returns a new multiplexer
 func setUpMux() *http.ServeMux {
 	mux := http.NewServeMux()
 
@@ -26,12 +31,25 @@ func setUpMux() *http.ServeMux {
 	return mux
 }
 
+// isPrimeHandler handles requests to `/check-is-prime`
 func isPrimeHandler(w http.ResponseWriter, r *http.Request) {
-	number := r.URL.Query().Get("number")
-	n, err := strconv.Atoi(number)
+
+	var queryParameters url.Values
+
+	// parse query parameters of the request URL into a defined hash map url.Values
+	queryParameters = r.URL.Query()
+
+	fmt.Println("query parameters: ", queryParameters)
+
+	// url.Values.Get returns an empty string if the key does not exist within the hash map
+	numberParam := queryParameters.Get("number")
+
+	// convert string representation of a number to int
+	n, err := strconv.Atoi(numberParam)
 
 	if err != nil {
-		http.Error(w, err.Error(), 404)
+		// reply to the request, writing the error string as the response content body
+		http.Error(w, "invalid number", http.StatusBadRequest)
 		return
 	}
 
@@ -41,6 +59,7 @@ func isPrimeHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// isPrime returns true or false if a number is prime
 func isPrime(n int64) bool {
 	return big.NewInt(n).ProbablyPrime(0)
 }

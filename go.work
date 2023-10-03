@@ -91,3 +91,5 @@ use ./lesson_6/http_servers_and_handlers02
 use ./lesson_6/http_server_and_default_mux
 
 use ./lesson_6/testing_handlers00
+
+use ./lesson_6/testing_handlers01

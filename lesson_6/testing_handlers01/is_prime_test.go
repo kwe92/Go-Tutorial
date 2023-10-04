@@ -136,5 +136,5 @@ func checkError(err error) {
 // http.NewRequest
 
 //   - returns a pointer to an http.Request structure
-//   - takes there arguments:
+//   - takes three arguments:
 //       HTTP Method, URL Path, Request Body `which is typically set to nil`

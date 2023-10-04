@@ -23,8 +23,9 @@ func main() {
 	log.Fatal(http.ListenAndServe(apiAddress, mux))
 }
 
-// setUpMux registers handlers to patterns and returns a new multiplexer
+// setUpMux registers all handlers to their associated patterns and returns a new multiplexer
 func setUpMux() *http.ServeMux {
+
 	mux := http.NewServeMux()
 
 	mux.HandleFunc(constants.Endpoints.IsPrime, isPrimeHandler)
@@ -42,7 +43,7 @@ func isPrimeHandler(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("query parameters: ", queryParameters)
 
-	// url.Values.Get returns an empty string if the key does not exist within the hash map
+	// url.Values.Get returns the value of the key passed in or an empty string if the key does not exist within the hash map
 	numberParam := queryParameters.Get("number")
 
 	// convert string representation of a number to int
@@ -54,8 +55,9 @@ func isPrimeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Print(n)
+	fmt.Println("number recieved: ", n)
 
+	// writes all arguments to the response body
 	fmt.Fprint(w, strconv.FormatBool(isPrime(int64(n))))
 
 }

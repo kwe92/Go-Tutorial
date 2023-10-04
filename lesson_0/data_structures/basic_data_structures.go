@@ -6,7 +6,9 @@ import "fmt"
 
 func main() {
 	i := 1234
+
 	j := int32(1)
+
 	f := float32(3.14)
 
 	bytes := []byte{'h', 'e', 'l', 'l', 'o'}

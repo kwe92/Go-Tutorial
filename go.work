@@ -2,6 +2,10 @@ go 1.21.0
 
 use ./lesson_0
 
+use ./lesson_0/data_structures
+
+use ./lesson_0/new_make_functions
+
 use ./lesson_1
 
 use ./lesson_2/greetings
@@ -70,6 +74,8 @@ use ./tour_of_go_lessons/reader02
 
 use ./tour_of_go_lessons/reader03
 
+use ./tour_of_go_lessons/reader04
+
 use ./tour_of_go_lessons/images00
 
 use ./tour_of_go_lessons/images01
@@ -85,3 +91,7 @@ use ./lesson_6/http_servers_and_handlers01
 use ./lesson_6/http_servers_and_handlers02
 
 use ./lesson_6/http_server_and_default_mux
+
+use ./lesson_6/testing_handlers00
+
+use ./lesson_6/testing_handlers01

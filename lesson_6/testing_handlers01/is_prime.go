@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	constants "testing_handlers01/constants"
 )
 
 const (
@@ -26,7 +27,7 @@ func main() {
 func setUpMux() *http.ServeMux {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/check-is-prime", isPrimeHandler)
+	mux.HandleFunc(constants.Endpoints.IsPrime, isPrimeHandler)
 
 	return mux
 }

@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	constants "testing_handlers01/constants"
 )
 
 func Test_IsPrimeHandler(t *testing.T) {
@@ -24,12 +25,13 @@ func Test_IsPrimeHandler(t *testing.T) {
 		{
 			name: "must return http.StatusBadRequest for an invalid number",
 			args: func(t *testing.T) args {
+				req, err := http.NewRequest(
+					constants.HTTPMethods.GET,
+					constants.Endpoints.IsPrime,
+					nil,
+				)
 
-				req, err := http.NewRequest("GET", "/check-is-prime", nil)
-
-				if err != nil {
-					log.Fatalf("failed to create request: %s", err.Error())
-				}
+				checkError(err)
 
 				queryParameterMap := req.URL.Query()
 
@@ -42,16 +44,38 @@ func Test_IsPrimeHandler(t *testing.T) {
 				}
 			},
 			wantCode: http.StatusBadRequest,
+
 			// suffix new line as the response body has a new line
 			wantBody: "invalid number\n",
 		},
 
 		// TODO: CONTINUE implementing tests
 
-		// {
-		// 	name: "must return http.StatusOk and true to prime number (7)",
-		// 	args: func(*testing.T){}
-		// }
+		{
+			name: "must return http.StatusOK and true to prime number (7)",
+			args: func(*testing.T) args {
+
+				req, err := http.NewRequest(
+					constants.HTTPMethods.GET,
+					constants.Endpoints.IsPrime,
+					nil,
+				)
+
+				checkError(err)
+
+				queryParameters := req.URL.Query()
+
+				queryParameters.Add("number", "7")
+
+				req.URL.RawQuery = queryParameters.Encode()
+
+				return args{
+					req: req,
+				}
+			},
+			wantCode: http.StatusOK,
+			wantBody: "true",
+		},
 	}
 
 	for _, tt := range tests {
@@ -79,6 +103,12 @@ func Test_IsPrimeHandler(t *testing.T) {
 		})
 	}
 
+}
+
+func checkError(err error) {
+	if err != nil {
+		log.Fatalf("failed to create request: %s", err.Error())
+	}
 }
 
 // Testing HTTP Handlers

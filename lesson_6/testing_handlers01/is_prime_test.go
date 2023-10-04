@@ -28,7 +28,7 @@ func Test_IsPrimeHandler(t *testing.T) {
 				req, err := http.NewRequest("GET", "/check-is-prime", nil)
 
 				if err != nil {
-					log.Fatalf("Failed to create request: %s", err.Error())
+					log.Fatalf("failed to create request: %s", err.Error())
 				}
 
 				queryParameterMap := req.URL.Query()
@@ -42,9 +42,16 @@ func Test_IsPrimeHandler(t *testing.T) {
 				}
 			},
 			wantCode: http.StatusBadRequest,
-			// ? why add a new line?
+			// suffix new line as the response body has a new line
 			wantBody: "invalid number\n",
 		},
+
+		// TODO: CONTINUE implementing tests
+
+		// {
+		// 	name: "must return http.StatusOk and true to prime number (7)",
+		// 	args: func(*testing.T){}
+		// }
 	}
 
 	for _, tt := range tests {
@@ -58,15 +65,15 @@ func Test_IsPrimeHandler(t *testing.T) {
 
 			if response.Result().StatusCode != tt.wantCode {
 				t.Fatalf("the status code should be [%d] but received [%d]",
-					response.Result().StatusCode,
 					tt.wantCode,
+					response.Result().StatusCode,
 				)
 			}
 
 			if response.Body.String() != tt.wantBody {
 				t.Fatalf("the response body should be [%s] but received [%s]",
-					response.Body.String(),
 					tt.wantBody,
+					response.Body.String(),
 				)
 			}
 		})

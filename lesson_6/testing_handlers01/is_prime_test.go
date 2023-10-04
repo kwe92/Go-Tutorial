@@ -10,49 +10,59 @@ import (
 
 func Test_IsPrimeHandler(t *testing.T) {
 
+	// setup the HTTP request multiplexer
 	handlers := setUpMux()
 
+	// args holds the created *http.Request as test arguments
 	type args struct {
 		req *http.Request
 	}
 
+	// tests is a Table Test collection, allowing easy creation of test suites
 	tests := []struct {
-		name     string
-		args     func(t *testing.T) args
-		wantCode int
-		wantBody string
+		name     string                  // represents the name of the test
+		args     func(t *testing.T) args //creates and returns the request
+		wantCode int                     // the HTTP status code you expect
+		wantBody string                  // the expected content of the response given the request
 	}{
 		{
 			name: "must return http.StatusBadRequest for an invalid number",
+
 			args: func(t *testing.T) args {
+
+				// create a request with the given HTTP method and URL
 				req, err := http.NewRequest(
 					constants.HTTPMethods.GET,
 					constants.Endpoints.IsPrime,
 					nil,
 				)
 
+				// check request errors
 				checkError(err)
 
+				// retrieve URL query parameter hash map
 				queryParameterMap := req.URL.Query()
 
+				// add query parameters as a key value pair to the query parameter map
 				queryParameterMap.Add("number", "not_number")
 
+				// append query parameters to the request URL
 				req.URL.RawQuery = queryParameterMap.Encode()
 
+				// return the created request in the args struct
 				return args{
 					req: req,
 				}
 			},
+
 			wantCode: http.StatusBadRequest,
 
-			// suffix new line as the response body has a new line
 			wantBody: "invalid number\n",
 		},
 
-		// TODO: CONTINUE implementing tests
-
 		{
 			name: "must return http.StatusOK and true to prime number (7)",
+
 			args: func(*testing.T) args {
 
 				req, err := http.NewRequest(
@@ -73,7 +83,9 @@ func Test_IsPrimeHandler(t *testing.T) {
 					req: req,
 				}
 			},
+
 			wantCode: http.StatusOK,
+
 			wantBody: "true",
 		},
 	}
@@ -111,6 +123,18 @@ func checkError(err error) {
 	}
 }
 
-// Testing HTTP Handlers
+// Creating Unit Tests for HTTP Handlers
 
-//   - build a request and compare response
+//   - at its core testing HTTP handlers is simple
+//     you build a request to mimic a Client request and compare the response recieved
+
+//   - to build the request you can use the http packages NewRequest function
+
+//   - to build an http.ResponseWriter for the handlers ServeHTTP method
+//     you can use the httptest.NewRecorder function
+
+// http.NewRequest
+
+//   - returns a pointer to an http.Request structure
+//   - takes there arguments:
+//       HTTP Method, URL Path, Request Body `which is typically set to nil`

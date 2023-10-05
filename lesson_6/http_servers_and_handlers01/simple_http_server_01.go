@@ -26,8 +26,7 @@ func hanlder(w http.ResponseWriter, r *http.Request) {
 
 // http.HandlerFunc
 
-//   - an adapter that defines a function type with a ServeHTTP method
-//     which takes as an argument a function that implements ServeHTTP
-//     transforms the function into a http.Handler implementation
+//   - an adapter whose input is a callback with the signature of func(w http.ResponseWriter, r *http.Request){...}
+//   - if the function meets the signature criteria it is transformed into an http.Handler implementation
 //   - this adapter pattern allows you to implement http.Handlers with less
 //     boiler plate code

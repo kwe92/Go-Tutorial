@@ -2,7 +2,12 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
+)
+
+const (
+	Address = ":8080"
 )
 
 func main() {
@@ -10,13 +15,14 @@ func main() {
 	// declare and initialize a ServeMux instance
 	mux := http.NewServeMux()
 
-	// registerhandler to path
+	// register handler to path
 	mux.Handle("/", &home{})
 
-	// start HTTP server on port 8080 using the ServeMux instance as a a handler
-	http.ListenAndServe(":8080", mux)
+	fmt.Println("Server has started!")
 
-	fmt.Println("Server has started")
+	// start HTTP server on port 8080 using the ServeMux instance as a handler
+	log.Fatal(http.ListenAndServe(Address, mux))
+
 }
 
 type home struct {
@@ -26,28 +32,30 @@ func (h *home) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Form is form, Emptiness is emptiness."))
 }
 
-// http.NewServerMux
-
-//   - allocates a ServerMux struct in memory
-//     as your own instance
-
 // ServerMux
 
-//   - an HTTP multiplexer
-//   - register a path to handler in a collection and match them in O(n) `linear-time`
-//   - incoming request URLs are matched to registered paths
-//     and their associated route handler is executed for each request
+//   - a struct that is an HTTP multiplexer allowing the creation of HTTP servers
+//   - ServerMux has methods to register handlers to paths `URLs` and
+//     match incoming request URLs to paths with registered handlers
+//   - if a request URL matches a path the registered handler is executed
+//   - routes are matched to paths in O(n) `linear-time`
 
-// http.NewServeMux().Handle()
+// http.NewServeMux
 
-//   - register a pattern (URL / path) to a route handler (http.Handler implementation)
+//   - allocates a new ServeMux struct in memory
+//     as your own instance
 
-// ServeHTTP
+// ServeMux.Handle(path, handler)
 
-//   - a method required to implement a http.Handler
+//   - a method that registers a route handler for a given path `patten / URL`
+
+// ServeHTTP method
+
+//   - required to implement the http.Handler interface
+//   - ServeHTTP is responsible for writing headers and content to the http.ResponseWriter
 //   - takes two arguments:
 //       * http.ResponseWriter
-//       * http.Request
+//       * pointer to a http.Request struct
 
 // http.ListenAndServe
 

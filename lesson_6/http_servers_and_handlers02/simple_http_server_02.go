@@ -27,5 +27,5 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 //   - registers a pattern `path` to a route handler
 //   - requires the least amount of boiler plate code to
-//   - register patterns and route handlers as
-//     http.HandlerFunc is called inside ServeMux{}.HandleFunc()
+//     register route handlers to patterns
+//   - http.HandlerFunc is called inside ServeMux{}.HandleFunc()

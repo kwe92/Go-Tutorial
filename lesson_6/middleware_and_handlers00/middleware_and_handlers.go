@@ -60,6 +60,7 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// setUpMiddleware wraps the mux with middleware handlers
 func setUpMiddleware(mux *http.ServeMux) http.Handler {
 	return NewLogger(NewResponseHeader(mux, "Content-Type", "text/plain"))
 }
@@ -69,7 +70,7 @@ type Logger struct {
 	Handler http.Handler
 }
 
-// ServeHTTP handlers responding to requests and logging request details
+// ServeHTTP handler responding to requests and logging request details
 func (l *Logger) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	start := time.Now()
@@ -85,12 +86,14 @@ func NewLogger(handlerToWrap http.Handler) *Logger {
 	return &Logger{handlerToWrap}
 }
 
+// ResponseHeader is a middleware handler toadd a header to the response
 type ResponseHeader struct {
 	Handler     http.Handler
 	HeaderName  string
 	HeaderValue string
 }
 
+// ServeHTTP handles the request by adding the response header
 func (resp *ResponseHeader) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Add(resp.HeaderName, resp.HeaderValue)
@@ -99,8 +102,17 @@ func (resp *ResponseHeader) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// NewResponseHeader constructs a new ResponseHeader middleware handler
 func NewResponseHeader(handler http.Handler, headerName string, headerValue string) *ResponseHeader {
 
 	return &ResponseHeader{handler, headerName, headerValue}
 
 }
+
+// Chaining Middleware
+
+//   - you can chain middleware with defined structs that implement ServeHTTP
+//   - each middleware struct should have a constructor function to return a pointer to an instance of it
+//   - there is also the option of using the adapter pattern
+
+//

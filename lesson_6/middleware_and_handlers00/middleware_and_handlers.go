@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -14,7 +15,9 @@ func main() {
 
 	mux := setUpMux()
 
-	wrappedMux := NewLogger(mux)
+	wrappedMux := setUpMiddleware(mux)
+
+	log.Printf("server is listening at %s", Addr)
 
 	log.Fatal(http.ListenAndServe(Addr, wrappedMux))
 }
@@ -43,14 +46,22 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.Write(homeResponseBody)
 
+	fmt.Println("Response headers: ", w.Header())
+
 }
 
 func aboutHandler(w http.ResponseWriter, r *http.Request) {
 
-	aboutResponseBody := []byte("And the light shineth in darkness; and the darkness comprehended it not.")
+	aboutResponseBody := "And the light shineth in darkness; and the darkness comprehended it not."
 
-	w.Write(aboutResponseBody)
+	fmt.Fprintf(w, aboutResponseBody)
 
+	fmt.Println("Response headers: ", w.Header())
+
+}
+
+func setUpMiddleware(mux *http.ServeMux) http.Handler {
+	return NewLogger(NewResponseHeader(mux, "Content-Type", "text/plain"))
 }
 
 // Logger is a middleware hanlder that does request logging
@@ -74,6 +85,22 @@ func NewLogger(handlerToWrap http.Handler) *Logger {
 	return &Logger{handlerToWrap}
 }
 
-type AddHeaders struct {
-	handler http.Handler
+type ResponseHeader struct {
+	Handler     http.Handler
+	HeaderName  string
+	HeaderValue string
+}
+
+func (resp *ResponseHeader) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+
+	w.Header().Add(resp.HeaderName, resp.HeaderValue)
+
+	resp.Handler.ServeHTTP(w, r)
+
+}
+
+func NewResponseHeader(handler http.Handler, headerName string, headerValue string) *ResponseHeader {
+
+	return &ResponseHeader{handler, headerName, headerValue}
+
 }

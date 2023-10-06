@@ -42,10 +42,11 @@ func (h *homeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // HTTP Server | Concept
 
 //   - a service that listens for incoming HTTP Requests and returns an HTTP Response
+//   - requests are routed to different registered functions depending on the request URL
 
 // ServeMux | Struct
 
-//   - a struct that is an HTTP multiplexer allowing the creation of HTTP servers
+//   - a struct that is an HTTP multiplexer allowing the creation of HTTP web servers
 //   - ServerMux has methods to register handlers to paths `URLs` and
 //     match incoming request URLs to paths with registered handlers
 //   - if a request URL matches a path the registered handler is executed

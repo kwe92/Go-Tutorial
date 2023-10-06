@@ -20,6 +20,7 @@ func main() {
 
 }
 
+// logger is a middleware function that does request logging
 func logger(h func(http.ResponseWriter, *http.Request)) func(http.ResponseWriter, *http.Request) {
 
 	handler := http.HandlerFunc(h)
@@ -71,3 +72,12 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 	))
 
 }
+
+// Middleware Pattern
+
+//   - a design pattern that enables pre- and/or post-processing of an HTTP request
+//     and sits between the GO HTTP server and the route handlers
+//   - can be a function or a structure
+//   - useful for but not limited to:
+//       ~ User authentication | zipping `compressing` request or response body | Logging | Add HTTP Headers
+//   - assists in keeping code D.R.Y.

@@ -1,4 +1,4 @@
-// TODO: Add comments
+// TODO: Add more comments
 
 package main
 
@@ -9,7 +9,7 @@ import (
 
 func main() {
 
-	// register handler to path
+	// register handler to path on defaultServeMux
 	http.HandleFunc("/", homeRouteHandler)
 
 	// start HTTP server on port 8080, using the default ServeMux

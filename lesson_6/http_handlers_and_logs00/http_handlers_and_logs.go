@@ -27,6 +27,7 @@ func logger(h func(http.ResponseWriter, *http.Request)) func(http.ResponseWriter
 
 	return func(w http.ResponseWriter, r *http.Request) {
 
+		// set logger prefix message
 		log.SetPrefix("Request Metadata: ")
 
 		log.Printf("\n%s %s", r.Method, r.URL.Path)
@@ -40,6 +41,7 @@ var routeHandlers = map[string]func(w http.ResponseWriter, r *http.Request){
 	"/about": aboutHandler,
 }
 
+// setUpMux sets up the HTTP multiplexer and registers  all handlers to patterns
 func setUpMux() *http.ServeMux {
 
 	mux := http.NewServeMux()
@@ -73,11 +75,17 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// TODO: Edit comments
+
 // Middleware Pattern
 
 //   - a design pattern that enables pre- and/or post-processing of an HTTP request
-//     and sits between the GO HTTP server and the route handlers
-//   - can be a function or a structure
+//   - middleware sits between the GO HTTP server and the route handlers
+//   - can be a function or a structure that wraps your handers or multiplexer
 //   - useful for but not limited to:
-//       ~ User authentication | zipping `compressing` request or response body | Logging | Add HTTP Headers
+//       ~ user authentication
+//       ~ zipping `compressing` request or response body
+//       ~ logging
+//       ~ adding HTTP Headers
 //   - assists in keeping code D.R.Y.
+//   - implementing middleware as structs rather than functions has many benefits

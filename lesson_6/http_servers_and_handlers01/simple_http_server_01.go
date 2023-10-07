@@ -6,8 +6,11 @@ import (
 )
 
 func main() {
+
+	// create a multiplexer instance
 	mux := http.NewServeMux()
 
+	// register the hander to thea given pattern
 	mux.Handle("/", http.HandlerFunc(hanlder))
 
 	fmt.Println("server has started.")
@@ -26,7 +29,6 @@ func hanlder(w http.ResponseWriter, r *http.Request) {
 
 // http.HandlerFunc
 
-//   - an adapter type whose input is a callback with the signature of func(w http.ResponseWriter, r *http.Request){...}
-//   - functions that meet the signature criteria are transformed into http.Handler implementations
-//   - http.HandlerFunc allows you to implement http.Handlers without defining a new struct
-//     for each handler created to implement the ServeHTTP method
+//   - an adapter type that convert a function to an http.Handler implementation
+//   - implement an http.Handler without defining a new struct
+//     for each handler created to implement the ServeHTTP method explicitly

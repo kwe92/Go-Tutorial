@@ -46,7 +46,7 @@ func main() {
 //   - a storage system for many diffrent types of data
 //   - Can be viewed as an indexable collection that stores objects for a program
 //   - Objects in memory are indexable by memory addresses, offering constant time operations O(1)
-//        ~ Search, Update, Delete
+//        ~ Insert, Search, Update, Delete
 
 // Pointers
 

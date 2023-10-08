@@ -48,7 +48,7 @@ func (h *homeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 //   - a service that listens for incoming HTTP Requests and returns an HTTP Response
 //   - requests are routed to different registered handlers `functions` depending on the request URL
 
-// ServeMux | Struct
+// ServeMux | Struct | http package
 
 //   - a struct representing an HTTP multiplexer allowing the creation of HTTP web servers
 //   - ServeMux has methods to:

@@ -2,17 +2,19 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 )
 
 func main() {
+	// create an HTTP multiplexer instance
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/", handler)
 
 	fmt.Println("Server started successfully!")
 
-	http.ListenAndServe(":3000", mux)
+	log.Fatal(http.ListenAndServe(":3000", mux))
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -25,7 +27,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 // HandleFunc | Method | ServeMux
 
-//   - a method that registers a route handler to a given pattern `path / URL`
+//   - HandleFunc registers a route handler to a given pattern `path / URL`
 //   - requires the least amount of code to register route handlers to patterns
-//   - calls http.HandlerFunc within its implementation to
-//     transform callbacks with the proper signature into http.Handlers
+//   - the HandleFunc implementation calls http.HandlerFunc on the callback passed
+//     as an argument and transforms the function into an http.Handler

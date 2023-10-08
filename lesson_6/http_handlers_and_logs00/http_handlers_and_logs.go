@@ -14,25 +14,27 @@ func main() {
 
 	mux := setUpMux()
 
+	// wrap your mux with the logger middleware
+	wrappedMux := logger(mux)
+
 	fmt.Println("Server has started successfully!")
 
-	log.Fatal(http.ListenAndServe(Address, mux))
+	log.Fatal(http.ListenAndServe(Address, wrappedMux))
 
 }
 
-// logger is a middleware function that does request logging
-func logger(h func(http.ResponseWriter, *http.Request)) func(http.ResponseWriter, *http.Request) {
+// logger: a middleware function that does request logging
+func logger(h http.Handler) http.Handler {
 
-	handler := http.HandlerFunc(h)
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
-	return func(w http.ResponseWriter, r *http.Request) {
-
+		// set logger prefix message
 		log.SetPrefix("Request Metadata: ")
 
 		log.Printf("\n%s %s", r.Method, r.URL.Path)
 
-		handler.ServeHTTP(w, r)
-	}
+		h.ServeHTTP(w, r)
+	})
 }
 
 var routeHandlers = map[string]func(w http.ResponseWriter, r *http.Request){
@@ -40,12 +42,14 @@ var routeHandlers = map[string]func(w http.ResponseWriter, r *http.Request){
 	"/about": aboutHandler,
 }
 
+// setUpMux: sets up the HTTP multiplexer
+// and registers all handlers to patterns
 func setUpMux() *http.ServeMux {
 
 	mux := http.NewServeMux()
 
 	for pattern, handler := range routeHandlers {
-		mux.HandleFunc(pattern, logger(handler))
+		mux.HandleFunc(pattern, handler)
 
 	}
 
@@ -76,8 +80,22 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 // Middleware Pattern
 
 //   - a design pattern that enables pre- and/or post-processing of an HTTP request
-//     and sits between the GO HTTP server and the route handlers
-//   - can be a function or a structure
+//   - middleware sits between the GO HTTP server and the route handlers
+//     adding functionality without modifying the servers core logic
+//   - increasing modularity and assists in keeping code D.R.Y.
+//   - can be implemented as a function or a struct
+//      that wraps your handers or multiplexer, perferably the multiplexer
 //   - useful for but not limited to:
-//       ~ User authentication | zipping `compressing` request or response body | Logging | Add HTTP Headers
-//   - assists in keeping code D.R.Y.
+//       ~ user authentication
+//       ~ zipping `compressing` request or response body
+//       ~ logging
+//       ~ adding HTTP Headers
+
+// Middleware Handlers in GO
+
+//   - middleware implementations should:
+
+//       - take an http.Handler as an argument
+//       - return an http.Handler
+//       - call the passed in handlers ServeHTTP method with the http.ResponseWriter
+//         and *http.Request passed as arguments

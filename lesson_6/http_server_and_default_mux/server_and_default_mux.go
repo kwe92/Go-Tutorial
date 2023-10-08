@@ -1,29 +1,29 @@
-// TODO: Add more comments
-
 package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
+	"strconv"
+)
+
+const (
+	Addr = ":8080"
 )
 
 func main() {
 
-	// register handler to path on defaultServeMux
+	// register a handler to a pattern on defaultServeMux
 	http.HandleFunc("/", homeRouteHandler)
 
-	// start HTTP server on port 8080, using the default ServeMux
-	err := http.ListenAndServe(":8080", nil)
+	fmt.Println("Server has started successfully, listening at", Addr)
 
-	if err != nil {
-		panic(err)
-	} else if err == nil {
-		fmt.Println("Server has started successfully!")
-	}
+	// start HTTP server on port 8080, using the default ServeMux
+	log.Fatal(http.ListenAndServe(Addr, nil))
 
 }
 
-// homeRouteHandler handles requests to the home path.
+// homeRouteHandler handles requests to the home path
 func homeRouteHandler(w http.ResponseWriter, r *http.Request) {
 
 	// set response headers
@@ -31,15 +31,18 @@ func homeRouteHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("X-Custom-Header", "In the beginning was the Word.")
 
-	var responseData []byte
+	var responseData00 []byte
 
-	responseData = []byte("Why are ye fearful, O ye of little faith?\n\nThen he arose, and rebuked the winds and the sea; and there was a great calm.")
+	var responseData01 []byte
 
-	// write data to the response body
-	w.Write(responseData)
+	responseData00 = []byte("Why are ye fearful, O ye of little faith?\n\nThen he arose, and rebuked the winds and the sea; and there was a great calm.")
 
-	// write response status code
-	w.WriteHeader(http.StatusOK)
+	responseData01 = []byte(" And all things, whatsoever ye shall ask in prayer, believing, ye shall receive.")
+
+	responses := [][]byte{
+		responseData00,
+		responseData01,
+	}
 
 	// access request URL
 	requestURL := r.URL
@@ -53,6 +56,36 @@ func homeRouteHandler(w http.ResponseWriter, r *http.Request) {
 	port := r.URL.Port()
 
 	query := r.URL.Query()
+
+	verse := query.Get("verse")
+
+	// convert verse to an integer
+	verseNumber, err := strconv.Atoi(verse)
+
+	// if there is no verse query parameter write an error to the response body and end execution
+	if len(verse) == 0 {
+		http.Error(w, fmt.Sprintf(`{"error": query parameter 'verse' is required, maximum indexable range %d}`, len(responses)-1), 404)
+		return
+	}
+
+	// if there is an error parsing the verse number write an the error to the response body and end execution
+	if err != nil {
+		http.Error(w, fmt.Sprintf(`{"error": %s}`, err.Error()), 404)
+		return
+	}
+
+	// if the requested verse number exceeds the indexable length of the Slice write an error to the response body and end execution
+	if verseNumber > len(responses)-1 {
+		http.Error(w, fmt.Sprintf(`{"error": index out of range, recieved %d indexable range upper limit %d}`, verseNumber, len(responses)-1), 404)
+		return
+
+	}
+
+	// write data to the response body
+	w.Write(responses[verseNumber])
+
+	// write response status code
+	w.WriteHeader(http.StatusOK)
 
 	fmt.Println("\nRequest URL: ", requestURL)
 
@@ -72,7 +105,7 @@ func homeRouteHandler(w http.ResponseWriter, r *http.Request) {
 	// Read request body
 	requestBody := make([]byte, r.ContentLength)
 
-	_, err := r.Body.Read(requestBody)
+	_, err = r.Body.Read(requestBody)
 
 	if err != nil {
 		fmt.Println(err)

@@ -22,7 +22,9 @@ func main() {
 	log.Fatal(http.ListenAndServe(Addr, wrappedMux))
 }
 
-// setUpMux initalizes a new HTTP multiplexer, registers handlers to patterns and returns the mux
+// setUpMux: creates an HTTP multiplexer instance,
+// registers all handlers to patterns
+// and returns the multiplexer
 func setUpMux() *http.ServeMux {
 
 	mux := http.NewServeMux()
@@ -60,17 +62,17 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// setUpMiddleware wraps the mux with middleware handlers
+// setUpMiddleware: wraps the multiplexer with middleware handlers
 func setUpMiddleware(mux *http.ServeMux) http.Handler {
 	return NewLogger(NewResponseHeader(mux, "Content-Type", "text/plain"))
 }
 
-// Logger is a middleware hanlder that does request logging
+// Logger: a middleware hanlder that does request logging
 type Logger struct {
 	Handler http.Handler
 }
 
-// ServeHTTP handler responding to requests and logging request details
+// ServeHTTP: handles responding to the request and logs request details
 func (l *Logger) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	start := time.Now()
@@ -81,19 +83,19 @@ func (l *Logger) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// NewLogger constructs a new Logger middleware handler
+// NewLogger: a constructor function that returns a new Logger middleware handler
 func NewLogger(handlerToWrap http.Handler) *Logger {
 	return &Logger{handlerToWrap}
 }
 
-// ResponseHeader is a middleware handler toadd a header to the response
+// ResponseHeader: a middleware handler that adds a header to the response
 type ResponseHeader struct {
 	Handler     http.Handler
 	HeaderName  string
 	HeaderValue string
 }
 
-// ServeHTTP handles the request by adding the response header
+// ServeHTTP: handles the request by adding a response header
 func (resp *ResponseHeader) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Add(resp.HeaderName, resp.HeaderValue)
@@ -102,7 +104,7 @@ func (resp *ResponseHeader) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// NewResponseHeader constructs a new ResponseHeader middleware handler
+// NewResponseHeader: constructs a new ResponseHeader middleware handler
 func NewResponseHeader(handler http.Handler, headerName string, headerValue string) *ResponseHeader {
 
 	return &ResponseHeader{handler, headerName, headerValue}
@@ -111,8 +113,6 @@ func NewResponseHeader(handler http.Handler, headerName string, headerValue stri
 
 // Chaining Middleware
 
-//   - you can chain middleware with defined structs that implement ServeHTTP
-//   - each middleware struct should have a constructor function to return a pointer to an instance of it
-//   - there is also the option of using the adapter pattern
-
-//
+//   - chain middleware together with defined structs that are an implementation of http.Handler
+//   - each middleware struct should have a constructor function that returns a pointer of that type
+//   - using the adapter pattern is advised if you have many middleware handlers chanined together

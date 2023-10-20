@@ -10,18 +10,18 @@ import (
 
 func Test_IsPrimeHandler(t *testing.T) {
 
-	// setup the HTTP request multiplexer
+	// setup HTTP request multiplexer
 	handlers := setUpMux()
 
-	// args holds the created *http.Request as test arguments
+	// args: holds the created *http.Request as test arguments
 	type args struct {
 		req *http.Request
 	}
 
-	// tests is a Table Test collection, allowing easy creation of test suites
+	// Table Driven Test collection
 	tests := []struct {
 		name     string                  // represents the name of the test
-		args     func(t *testing.T) args //creates and returns the request
+		args     func(t *testing.T) args // creates and returns the request
 		wantCode int                     // the HTTP status code you expect
 		wantBody string                  // the expected content of the response given the request
 	}{

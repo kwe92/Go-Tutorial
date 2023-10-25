@@ -24,6 +24,8 @@ use ./lesson_3/postgres_example_3
 
 use ./lesson_4/working_with_pointers_00
 
+use ./lesson_4/working_with_pointers_01
+
 use ./lesson_5
 
 use ./lesson_6/http_servers_and_handlers00

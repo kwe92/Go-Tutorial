@@ -17,16 +17,28 @@ func main() {
 		fmt.Printf("\nPos: %d | Neg %d", pos(i), neg(-2*i))
 	}
 
-	// NOTE: the sum parameter is by value not by reference so a copy is created
+	twoBase, threeBase := makeMulti(2), makeMulti(3)
 
+	for i := 0; i < 5; i++ {
+		fmt.Printf("\ntwoBase: %d | threeBase:  %d", twoBase(i), threeBase(i))
+
+	}
+
+	// NOTE: the sum parameter is by value not by reference so a copy is created
 	fmt.Println("\nsum value: ", sum)
+
 }
 
 func adder(sum int) IntCallback {
-	// var sum int = 0
 	return func(x int) int {
 		sum += x
 		return sum
+	}
+}
+
+func makeMulti(base int) IntCallback {
+	return func(factor int) int {
+		return base * factor
 	}
 }
 
@@ -34,6 +46,11 @@ func adder(sum int) IntCallback {
 
 //   - Go functions may be closures
 //   - closures are function values that reference mutable variables bound to them outside of their own scope
+//   - the state of parent function parameters are saved (bound) as constants for the lifetime of the closure
 //   - e.g. the adder function returns a closure in which each closure is bound to its own sum variable.
 
 // Binding | Lexical Scope
+
+// Shadowed Variables
+
+//   - variables that have the same name in diffrent scopes / blocks

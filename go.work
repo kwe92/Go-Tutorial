@@ -6,6 +6,8 @@ use ./lesson_0/data_structures
 
 use ./lesson_0/new_make_functions
 
+use ./lesson_0/maps_as_sets
+
 use ./lesson_1
 
 use ./lesson_2/greetings
@@ -21,6 +23,8 @@ use ./lesson_3/postgres_example_2
 use ./lesson_3/postgres_example_3
 
 use ./lesson_4/working_with_pointers_00
+
+use ./lesson_4/working_with_pointers_01
 
 use ./lesson_5
 

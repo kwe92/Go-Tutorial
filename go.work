@@ -2,11 +2,19 @@ go 1.21.0
 
 use ./lesson_0
 
-use ./lesson_0/data_structures
+use ./lesson_0/composite_types/maps_as_sets
+
+use ./lesson_0/composite_types/structs/structs00
+
+use ./lesson_0/composite_types/structs/structs01
+
+use ./lesson_0/composite_types/structs/structs02
+
+use ./lesson_0/composite_types/structs/structs03
 
 use ./lesson_0/new_make_functions
 
-use ./lesson_0/maps_as_sets
+use ./lesson_0/primitive_types
 
 use ./lesson_1
 
@@ -75,6 +83,8 @@ use ./tour_of_go_lessons/interfaces03
 use ./tour_of_go_lessons/interfaces04
 
 use ./tour_of_go_lessons/interfaces05
+
+use ./tour_of_go_lessons/interfaces06
 
 use ./tour_of_go_lessons/type_assertion00
 

@@ -26,7 +26,7 @@ func describe(i I) {
 // The Empty Interface
 
 //   - interface{} represents an empty interface type with possibly no methods
-//     than can hold a value of any type which can be dynamically assigned
+//   - empty interfaces can hold a value of any type which can be dynamically assigned
 //   - the pointer pair (value, concrete_type) can be changed dynamically
 
 // The any Type

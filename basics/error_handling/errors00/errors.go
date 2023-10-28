@@ -61,6 +61,10 @@ func main() {
 //   - errors are handled explicitly by the caller of a function
 //     by checking if the error interface is returned nil or not
 
+// Error MEssages
+
+//   - error messages should always be lower case and should not be prefixed with a new line
+
 // Stopping Execution When Encountering an Error
 
 //   - there are a few ways to stop the execution of a program if an error is encountered
@@ -81,9 +85,9 @@ func main() {
 //   - the return type of an error is an interface
 //   - the zero value for any interface type is nil
 
-// Returning Errors
+// Creating Errors From Strings
 
-//   - there are a few built-in ways to return errors
+//   - there are a few built-in ways to create an error from a string
 //   - you can also return your own error that implements the error interface
 
 // errors.New

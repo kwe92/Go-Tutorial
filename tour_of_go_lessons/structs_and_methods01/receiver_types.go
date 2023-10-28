@@ -44,8 +44,14 @@ func main() {
 
 //   - value receivers are copies and the original object remains immutable by the method
 //   - copies of objects allocate new memory for that object making value receivers less efficient
+//   - can not work with nil receivers
+//   - only contains the method set for value receivers
+//     if a method is implemented with a pointer receiver then a pointer is required
+//     as the receiver will not show wup in the value receiver method set
 
 // Pointer Receivers
 
 //   - pointer receivers point to an object in memory rendering them mutable to a method
 //   - preferred over value receivers as they are more memory efficient
+//   - contains the method set for both value and pointer receivers
+//     implying that a pointer can be used anywhere a value is expected

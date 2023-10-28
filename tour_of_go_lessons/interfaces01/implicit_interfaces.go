@@ -61,9 +61,9 @@ func main() {
 
 // Interfaces Are Implemented Implicitly
 
-//     - types implement interfaces by implementing the associated methods of an interface
+//     - types implement interfaces by implementing the associated methods `method set` of an interface
 //     - GO removes the declaration of intent like the implements keyword that you may find in other object oriented languages
-//     - If a type implements an interfaces method signatures then it can be considered an implementation of that interface implicitly
+//     - If a type implements an interfaces method signatures `method set` then it can be considered an implementation of that interface implicitly
 
 // Type Conversion
 

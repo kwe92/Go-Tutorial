@@ -53,7 +53,7 @@ func main() {
 
 // Method Receiver
 
-//   - Prefixes function name
-//   - example (The Cerberus Function):
+//   - placed between func keyword and function name
+//   - example `The Cerberus Function`:
 
-//        func (t DefinedType) method_name(param0 data_type) (return_data_type,  return_data_type) {...}
+//       func (t receiverType) methodName(param0 paramDataType) (returnDataType,  returnDataType) {...}

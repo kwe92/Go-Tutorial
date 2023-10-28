@@ -57,5 +57,5 @@ func main() {
 
 // Sub-Typing is not Iheritance
 
-//   - sub types have the same  field names, field order, field types
-//   - the subtype does not share `inherit` any methods defined in the parent type
+//   - sub-types have the same field names, field order, and field types as the parent type
+//   - sub-types do not share `inherit` any methods defined in the parent type

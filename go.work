@@ -1,58 +1,58 @@
 go 1.21.0
 
-use ./lesson_0
+use ./basics
 
-use ./lesson_0/composite_types/maps_as_sets
+use ./basics/composite_types/maps_as_sets
 
-use ./lesson_0/composite_types/structs/structs00
+use ./basics/composite_types/structs/structs00
 
-use ./lesson_0/composite_types/structs/structs01
+use ./basics/composite_types/structs/structs01
 
-use ./lesson_0/composite_types/structs/structs02
+use ./basics/composite_types/structs/structs02
 
-use ./lesson_0/composite_types/structs/structs03
+use ./basics/composite_types/structs/structs03
 
-use ./lesson_0/new_make_functions
+use ./basics/new_make_functions
 
-use ./lesson_0/primitive_types
+use ./basics/primitive_types
 
-use ./lesson_1
+use ./external_packages
 
-use ./lesson_2/greetings
+use ./multi_module/greetings
 
-use ./lesson_2/hello
+use ./multi_module/hello
 
-use ./lesson_3/postgres_example_0
+use ./postgres_sql/postgres_example_0
 
-use ./lesson_3/postgres_example_1
+use ./postgres_sql/postgres_example_1
 
-use ./lesson_3/postgres_example_2
+use ./postgres_sql/postgres_example_2
 
-use ./lesson_3/postgres_example_3
+use ./postgres_sql/postgres_example_3
 
-use ./lesson_4/working_with_pointers_00
+use ./pointers/working_with_pointers_00
 
-use ./lesson_4/working_with_pointers_01
+use ./pointers/working_with_pointers_01
 
-use ./lesson_5
+use ./generics
 
-use ./lesson_6/http_servers_and_handlers00
+use ./http_servers_and_testing/http_servers_and_handlers00
 
-use ./lesson_6/http_servers_and_handlers01
+use ./http_servers_and_testing/http_servers_and_handlers01
 
-use ./lesson_6/http_servers_and_handlers02
+use ./http_servers_and_testing/http_servers_and_handlers02
 
-use ./lesson_6/http_server_and_default_mux
+use ./http_servers_and_testing/http_server_and_default_mux
 
-use ./lesson_6/testing_handlers00
+use ./http_servers_and_testing/testing_handlers00
 
-use ./lesson_6/testing_handlers01
+use ./http_servers_and_testing/testing_handlers01
 
-use ./lesson_6/http_response00
+use ./http_servers_and_testing/http_response00
 
-use ./lesson_6/http_handlers_and_logs00
+use ./http_servers_and_testing/http_handlers_and_logs00
 
-use ./lesson_6/middleware_and_handlers00
+use ./http_servers_and_testing/middleware_and_handlers00
 
 use ./random_exploration
 

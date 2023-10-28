@@ -1,7 +1,5 @@
 package main
 
-// TODO: redo in a seprate dicectory /Users/kwe/GoLang/go-tutorial-greetings
-
 import (
 	"fmt"
 	"greetings"

@@ -54,7 +54,7 @@ func main() {
 //     where the object is stored
 //   - Reducing memory allocation (memory storage is finite)
 
-// Ampersand Operation
+// Address Operation
 
 //   - &Object generates a pointer to the operand (suffixed object)
 

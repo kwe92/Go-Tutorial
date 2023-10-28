@@ -10,6 +10,8 @@ use ./lesson_0/composite_types/structs/structs01
 
 use ./lesson_0/composite_types/structs/structs02
 
+use ./lesson_0/composite_types/structs/structs03
+
 use ./lesson_0/new_make_functions
 
 use ./lesson_0/primitive_types

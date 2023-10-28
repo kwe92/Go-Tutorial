@@ -19,7 +19,7 @@ func whatTheType(i interface{}) {
 
 }
 
-func forEach(arr []interface{}, fn func(interface{})) {
+func forEach[T any](arr []T, fn func(T)) {
 
 	for _, ele := range arr {
 		fn(ele)
@@ -49,9 +49,12 @@ func main() {
 
 // Type Switch Statements
 
+//   - used when an interface can be one of multiple types
 //   - allows you to evaluate several type assertions in a series of case statements
 //   - the cases are types instead of values
 //   - the case compares the type to the interface values underlying concrete type
+//   - the variable being checked is usually assigned to a variable of the same name, but doesnt have to be
+//     this is a situation where shadowing a variable name is okay
 
 // Type Swtich Declaration
 

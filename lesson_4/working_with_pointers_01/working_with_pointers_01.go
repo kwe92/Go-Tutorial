@@ -26,6 +26,7 @@ func returnPointer[T any](value T) *T {
 // struct: Pointer Types For Fields
 
 //   - if a field has a type of pointer type then the assigned value must be a pointer type
+//   - fields with pointer types may not be adjacent to eachother in memory
 
 // Primitive Literal Pointers
 

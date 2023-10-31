@@ -64,4 +64,3 @@ func main() {
 
 //   - Provides a generic interface through a struct for SQL and SQL-lite databases
 //   - requires a third party database driver that works with GO (GO provides a list of drivers within their documentation)
-//   -

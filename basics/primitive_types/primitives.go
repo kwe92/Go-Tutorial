@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 // TODO: add comments
 
 var i int
@@ -43,6 +45,12 @@ func main() {
 	boolean = false
 
 	s = "to be treated like a king act like one."
+
+	var b0 byte
+
+	var unsignedInt8 uint8
+
+	fmt.Println(b0 == unsignedInt8)
 
 }
 

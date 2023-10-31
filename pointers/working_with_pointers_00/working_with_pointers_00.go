@@ -50,20 +50,22 @@ func main() {
 
 // Pointers
 
-//   - Pointers point to the value of an object in memory by the location in memory `memory address`
-//     where the object is stored
+//   - Pointers point to the value of an object in memory
+//     by the location in memory `memory address` where the object is stored
 //   - Reducing memory allocation (memory storage is finite)
 
-// Address Operation
+// Value of Uninitialized Pointers
+
+//   - the value of an uninitialized pointer is nil
+
+// Address Operator
 
 //   - &Object generates a pointer to the operand (suffixed object)
 
 // Pointer Value
 
-//   - the asterisk operation denotes a pointers underlying value
+//   - the asterisk denotes a pointers underlying value and is the indirection operator
 //   - used to update the value at the point in memory
-
-//? Pointers In Practice
 
 // Functions Modifying Collections
 
@@ -76,3 +78,5 @@ func main() {
 //   - to modify an object passed into a function as an argument
 //     you must pass in a pointer to that object
 //   - Which can then be used to modify the object at that point in memory
+
+//? Pointers In Practice

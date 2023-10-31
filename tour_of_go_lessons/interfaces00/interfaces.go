@@ -59,7 +59,7 @@ func main() {
 // GO Interface Type
 
 //   - interfaces are a type in GO defined as a set of method signatures
-//   - they are the only abstract type in GO
+//   - they are the only abstract type in GO similar to abstract classes in other languages
 //   - any built-in type or user defined type that implements the methods of an interface
 //     can be a value of that interface type
 //   - interface names typically end with `er` e.g. Abser

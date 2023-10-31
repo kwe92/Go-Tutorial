@@ -51,7 +51,7 @@ func main() {
 
 //   - match a returned error and all the errors that it wraps to a specified error type
 //   - if an error matches the target error type then the returned error is assigned to the target error
-//   - the target must be a pointer to an errortype or a pointer to an interface
+//   - the target must be a pointer to an error type or a pointer to an interface
 
 // overriding errors.As
 

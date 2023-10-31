@@ -29,9 +29,9 @@ func fileAsString(filepath string) (string, error) {
 		}
 	}
 
-	fileString := string(data)
+	stringData := string(data)
 
-	return fileString, nil
+	return stringData, nil
 
 }
 
@@ -78,3 +78,4 @@ func checkError(err error) {
 // errors.Is | With Noncomparable type
 
 //   - if the type of your custom error is noncomparable then you must implement the Is method
+//     on your custom error

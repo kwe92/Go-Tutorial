@@ -76,5 +76,5 @@ func main() {
 
 // Wrapping Multiple Errors With Same Message
 
-//   - if you have a chain of errors that could be wrapped with the same message
+//   - if you have a multiple of errors that could be wrapped with the same message
 //     you can use defer to wrap the message keeping code DRY

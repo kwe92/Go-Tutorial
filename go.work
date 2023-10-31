@@ -2,6 +2,8 @@ go 1.21.0
 
 use ./basics
 
+use ./basics/primitive_types
+
 use ./basics/composite_types/maps_as_sets
 
 use ./basics/composite_types/structs/structs00
@@ -14,7 +16,25 @@ use ./basics/composite_types/structs/structs03
 
 use ./basics/new_make_functions
 
-use ./basics/primitive_types
+use ./basics/error_handling/errors00
+
+use ./basics/error_handling/errors01
+
+use ./basics/error_handling/errors02
+
+use ./basics/error_handling/errors03
+
+use ./basics/error_handling/errors04
+
+use ./basics/error_handling/errors05
+
+use ./basics/error_handling/errors06
+
+use ./basics/error_handling/errors07
+
+use ./basics/error_handling/errors08
+
+use ./basics/error_handling/errors09
 
 use ./external_packages
 

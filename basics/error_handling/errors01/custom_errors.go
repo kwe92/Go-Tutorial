@@ -5,15 +5,15 @@ import (
 	"log"
 )
 
-type Invalid int
+type InvalidStatus int
 
 const (
-	InvalidNumberOdd  Invalid = iota + 501
-	InvalidNumberEven Invalid = iota + 501
+	InvalidNumberOdd InvalidStatus = iota + 501
+	InvalidNumberEven
 )
 
 type InvalidNumberErr struct {
-	Invalid
+	InvalidStatus
 	message string
 }
 
@@ -25,25 +25,25 @@ func (i InvalidNumberErr) Error() string {
 func doubleEven(num int) (int, error) {
 	if odd := num%2 != 0; odd {
 		return 0, InvalidNumberErr{
-			Invalid: InvalidNumberOdd,
-			message: "expected even number, received odd.",
+			InvalidStatus: InvalidNumberOdd,
+			message:       "expected even number, received odd.",
 		}
 	}
 	doubledNum := num * 2
 	return doubledNum, nil
 }
 
-// trippleOdd: doubles a number if it is even
+// trippleOdd: triples a number if it is odd
 func trippleOdd(num int) (int, error) {
 	if even := num%2 == 0; even {
 		return 0, InvalidNumberErr{
-			Invalid: InvalidNumberEven,
-			message: fmt.Sprintf("expected odd number, received: %d.", num),
+			InvalidStatus: InvalidNumberEven,
+			message:       fmt.Sprintf("expected odd number, received: %d.", num),
 		}
 
 	}
-	doubledNum := num * 3
-	return doubledNum, nil
+	tripledNum := num * 3
+	return tripledNum, nil
 }
 
 func main() {
@@ -76,9 +76,11 @@ func checkErr(err error) {
 //   - error is an interface that can be implemented with a user defined-type that implements the Error method
 //   - the names of custom errors should be suffixed with `Err`
 //   - interfaces are structurally typed and defined-types that
-//     implement an interface can have additional information
+//     implement an interface can have additional information `fields and methods`
 
 // Returning Custom Errors From Functions
 
-//   - you should always return the error interface as the error result
+//   - you should always declare the error interface as the error return type
 //     instead of the custom defined error as the return type
+
+//   - When an error is encoutered you should return an instantiation of your custom error

@@ -2,29 +2,29 @@ package main
 
 import "fmt"
 
+type InvalidStatus int
+
 const (
-	InvalidNumberOdd  Invalid = iota + 501
-	InvalidNumberEven Invalid = iota + 502
+	InvalidNumberOdd InvalidStatus = iota + 501
+	InvalidNumberEven
 )
 
-type Invalid int
-
-type InvalidNumErr struct {
-	Invalid
+type InvalidNumberErr struct {
+	InvalidStatus
 	message string
 }
 
-func (i InvalidNumErr) Error() string {
+func (i InvalidNumberErr) Error() string {
 	return i.message
 }
 
 func generateErrorWrong(flag bool) error {
 
-	// initialized with the zero value of empty string
-	var invalidNumErr InvalidNumErr
+	// InvalidNumberErr is a struct not an interface and it's fields are initialized to their zero-value
+	var invalidNumErr InvalidNumberErr
 
 	if flag {
-		invalidNumErr = InvalidNumErr{
+		invalidNumErr = InvalidNumberErr{
 			message: "Invalid number.",
 		}
 
@@ -37,11 +37,11 @@ func generateErrorWrong(flag bool) error {
 
 func generateErrorRight(flag bool) error {
 
-	// initialized with the zero value of nil
+	// error is an interface and initialized with the zero-value of nil which also makes its concrete type nil
 	var invalidNumErr error
 
 	if flag {
-		invalidNumErr = InvalidNumErr{
+		invalidNumErr = InvalidNumberErr{
 			message: "Invalid number.",
 		}
 
@@ -52,12 +52,12 @@ func generateErrorRight(flag bool) error {
 
 }
 
+// generateErrorRight2: is the cleanest and shortest way to return an uninitialized error
+
 func generateErrorRight2(flag bool) error {
 
-	// initialized with the zero value of nil
-
 	if flag {
-		return InvalidNumErr{
+		return InvalidNumberErr{
 			message: "Invalid number.",
 		}
 
@@ -76,36 +76,37 @@ func main() {
 
 	err := generateErrorWrong(t)
 
-	fmt.Printf("\nexpected %v received %v", t, err != nil)
+	fmt.Printf("\nexpected %t received %t", t, err != nil)
 
 	err = generateErrorWrong(f)
 
-	fmt.Printf("\nexpected %v received %v", f, err != nil)
+	fmt.Printf("\nexpected %t received %t", f, err != nil)
 
 	err = generateErrorRight(t)
 
-	fmt.Printf("\nexpected %v received %v", t, err != nil)
+	fmt.Printf("\nexpected %t received %t", t, err != nil)
 
 	err = generateErrorRight(f)
 
-	fmt.Printf("\nexpected %v received %v", f, err != nil)
+	fmt.Printf("\nexpected %t received %t", f, err != nil)
 
 	err = generateErrorRight2(t)
 
-	fmt.Printf("\nexpected %v received %v", t, err != nil)
+	fmt.Printf("\nexpected %t received %t", t, err != nil)
 
 	err = generateErrorRight2(f)
 
-	fmt.Printf("\nexpected %v received %v\n", f, err != nil)
+	fmt.Printf("\nexpected %t received %t\n", f, err != nil)
 }
 
 // Uninitialized Instances of Custom Errors
 
-//   - custom errors are types not interfaces
-//   - if a custom error is declared but not initialized then the zero value
-//     of its underlying type will be initialized
+//   - custom errors are user defined types not interfaces
+//   - if a custom error is declared but not initialized then
+//     the fields of the custom error are initialized to their zero values
 
 // Avoiding Uninitialized Instances of Custom Errors
 
-//   - always declare an error variable as an error interface and instantiate any implementation of the error interface as the variables value
+//   - always declare an error variable as an error interface
+//   - instantiate any implementation of the error interface as the variables value
 //   - return nil if an error was declared as a variable but there was not an instantiation of an error implementation

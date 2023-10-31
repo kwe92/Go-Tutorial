@@ -29,7 +29,7 @@ func main() {
 
 	fmt.Println(num)
 
-	checkErr(err)
+	checkErrorAndUnwrap(err)
 
 	var oddNum = 43
 
@@ -39,21 +39,15 @@ func main() {
 
 	checkErrorAndUnwrap(err)
 
-	// checkErr(err)
-
 }
 
-func checkErr(err error) {
-	if err != nil {
-		log.Fatal(err)
-	}
-}
 func checkErrorAndUnwrap(err error) {
 	if err != nil {
 		fmt.Println(err)
 		if wrappedErr := errors.Unwrap(err); wrappedErr != nil {
-			fmt.Println("Wrapped Error Message:", wrappedErr)
-			os.Exit(1)
+
+			log.Fatalf("Wrapped Error Message: %s", wrappedErr.Error())
+
 		}
 		os.Exit(1)
 
@@ -62,13 +56,19 @@ func checkErrorAndUnwrap(err error) {
 
 // Wrapping Errors
 
-//   - adding additional context to errors
+//   - prefixing errors with additional context e.g. the invoked function that caused the error
 
 // fmt.Errorf | Error Wrapping
 
-//   - can format a string based on format verbs
+//   - formats a string based on format verbs / specifiers and returns an instantiated error
 //   - if the format verb is %w then the error associated with the verb is wrapped
 
 // Error Chain
 
 //   - a chain of wrapped errors
+
+// Unwrapping Errors
+
+//   - use the errors.Unwrap method to return the result of calling the Unwrap method of the error passed in
+//   - you can then check if this result is nil
+//   - if the result is nil then there was no wrapped error

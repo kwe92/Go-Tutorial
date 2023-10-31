@@ -16,13 +16,13 @@ func doubleEven(num int) (int, error) {
 	return doubledNum, nil
 }
 
-// trippleOdd: doubles a number if it is even
+// trippleOdd: triples a number if it is odd
 func trippleOdd(num int) (int, error) {
 	if even := num%2 == 0; even {
 		return 0, fmt.Errorf("expected odd number, received: %d.", num)
 	}
-	doubledNum := num * 3
-	return doubledNum, nil
+	tripledNum := num * 3
+	return tripledNum, nil
 }
 
 func main() {
@@ -42,7 +42,7 @@ func main() {
 	num, err = doubleEven(oddNum)
 
 	if err != nil {
-		log.Fatalf(err.Error())
+		log.Fatal(err.Error())
 	}
 
 	num, err = trippleOdd(evenNum)
@@ -61,7 +61,7 @@ func main() {
 //   - errors are handled explicitly by the caller of a function
 //     by checking if the error interface is returned nil or not
 
-// Error MEssages
+// Error Messages
 
 //   - error messages should always be lower case and should not be prefixed with a new line
 
@@ -72,23 +72,23 @@ func main() {
 // Stopping Execution with fmt.Printf and os.Exit(1)
 
 //   - print the error to the console and call os.Exit(1) to exit the
-//     current program with an non-zero error code to indicate failure
+//     current program with an non-zero error code `typically 1` to indicate failure
 
 // Stopping Execution with log.Fatalf(error.Error())
 
 //   - passing the error string to log.Fatal or log.Fatalf for string formating
-//   - has the same effect as using fmt.Println or fmt.Printf with os.Exit(1) with additional capabilities
+//   - has the same effect as using fmt.Println or fmt.Printf with os.Exit(1) with additional logging capabilities
 //   - prefixes the error with a timestamp
 
 // Why Check for and return nil?
 
 //   - the return type of an error is an interface
-//   - the zero value for any interface type is nil
+//   - the zero-value for any interface type is nil
 
 // Creating Errors From Strings
 
 //   - there are a few built-in ways to create an error from a string
-//   - you can also return your own error that implements the error interface
+//   - you can also return your own custom error that implements the error interface
 
 // errors.New
 

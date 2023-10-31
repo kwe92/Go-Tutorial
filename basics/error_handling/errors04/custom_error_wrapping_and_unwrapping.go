@@ -10,8 +10,8 @@ import (
 type InvalidStatus int
 
 const (
-	InvalidOdd  InvalidStatus = iota + 501
-	InvalidEven InvalidStatus = iota + 502
+	InvalidOdd InvalidStatus = iota + 501
+	InvalidEven
 )
 
 type InvalidNumErr struct {
@@ -40,7 +40,7 @@ func doubleEven(num int) (int, error) {
 	if err != nil {
 		return 0, InvalidNumErr{
 			InvalidStatus: InvalidOdd,
-			message:       fmt.Sprintf("expected an even number and received %d", num),
+			message:       fmt.Sprintf("in doubleEven: %v", err),
 			// initialize the received error into the custom errors error field
 			err: err,
 		}
@@ -55,7 +55,7 @@ func main() {
 
 	fmt.Println(num)
 
-	checkErr(err)
+	checkErrorAndUnwrap(err)
 
 	var oddNum = 43
 
@@ -65,21 +65,13 @@ func main() {
 
 	checkErrorAndUnwrap(err)
 
-	// checkErr(err)
-
 }
 
-func checkErr(err error) {
-	if err != nil {
-		log.Fatal(err)
-	}
-}
 func checkErrorAndUnwrap(err error) {
 	if err != nil {
 		fmt.Println(err)
 		if wrappedErr := errors.Unwrap(err); wrappedErr != nil {
-			fmt.Println("Wrapped Error Message:", wrappedErr)
-			os.Exit(1)
+			log.Fatalf("Wrapped Error Message: %v", wrappedErr)
 		}
 		os.Exit(1)
 
@@ -88,7 +80,7 @@ func checkErrorAndUnwrap(err error) {
 
 // Wrapping Errors With Custom Errors
 
-//   - the custom error struct should include a field that expects an error
+//   - the custom error struct should include a field that expects an error interface
 //   - the error that you intend to wrap should be initialized to this field
 //   - the custom error struct is also required to implement the Unwrap method
 //     to be used with fmt.Unwrap, which expects the passed in error to have implemented this method

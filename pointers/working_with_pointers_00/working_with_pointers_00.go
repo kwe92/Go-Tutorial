@@ -50,9 +50,13 @@ func main() {
 
 // Pointers
 
-//   - Pointers point to the value of an object in memory by the location in memory `memory address`
-//     where the object is stored
+//   - Pointers point to the value of an object in memory
+//     by the location in memory `memory address` where the object is stored
 //   - Reducing memory allocation (memory storage is finite)
+
+// Value of Uninitialized Pointers
+
+//   - the value of an uninitialized pointer is nil
 
 // Address Operator
 

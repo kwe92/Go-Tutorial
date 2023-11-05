@@ -28,7 +28,7 @@ func main() {
 
 // Default Selection
 
-//   - a select statement default case is ran if no other case is ready
+//   - a select statements default case runs if no other case is ready to communicate
 //   - can be used to attempt a send or receive without blocking
 
 // time.Tick
@@ -37,8 +37,8 @@ func main() {
 
 // time.After
 
-//   - after the elapsed time a time.Timer of channel type is returned with the current time
+//   - after the elapsed time returns a time.Timer of channel type with the current time
 
 // time.Sleep
 
-//   - pauses go-routine for the duration
+//   - pauses a goroutine for the duration

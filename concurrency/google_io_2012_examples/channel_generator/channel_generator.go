@@ -14,22 +14,22 @@ func main() {
 	// read n values from the channels and initiate synchronization
 	for i := 0; i < n; i++ {
 
-		// read from channel
+		// read from channel00
 		fmt.Println("you say: ", <-readChannel00)
 
-		// read from channel
+		// read from channel01
 		fmt.Println("you say: ", <-readChannel01)
 
 	}
 }
 
-// say: writes message to a channel n times and returns a read-only channel.
+// say: writes message to channel n times and returns a read-only channel.
 func say(msg string) <-chan string {
 
 	// define channel
 	var writeChannel chan string
 
-	// initialize channel
+	// initialize channel | zero-value is nil
 	writeChannel = make(chan string)
 
 	// launch goroutine to write to the channel
@@ -52,7 +52,10 @@ func say(msg string) <-chan string {
 
 // Synchronization
 
-// Synchronization Allows the channels to communicate synchronously
+//   - synchronization allows the channels to communicate synchronously `in lockstep`
+//   - channels will take turns executing and returning their values
+//   - in the example above if readChannel01 is ready to send a value but readChannel00 has not sent
+//     a value readChannel01 is blocked until readChannel00 sends a value
 
 // Channel Generator
 

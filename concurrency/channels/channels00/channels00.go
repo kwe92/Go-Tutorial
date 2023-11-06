@@ -72,7 +72,7 @@ func main() {
 
 // Channel Types
 
-//   - a channels unerlying type can be of any type
+//   - a channels static type can be of any type
 //   - a channel can also be explicitly declared as a send channel `write channel` or receive channel `read channel`
 
 // Synchronization (Goroutines Communicate & Synchronize)

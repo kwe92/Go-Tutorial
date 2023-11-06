@@ -66,6 +66,10 @@ use ./concurrency/google_io_2012_examples/select_statement/select_statement00
 
 use ./concurrency/google_io_2012_examples/select_statement/select_statement01
 
+use ./concurrency/google_io_2012_examples/fake_google_search/fake_google_search_concurrent
+
+use ./concurrency/google_io_2012_examples/fake_google_search/fake_google_search_non_concurrent
+
 use ./external_packages
 
 use ./multi_module/greetings

@@ -9,7 +9,7 @@ func main() {
 
 	n := 5
 
-	readChannel := getTIme()
+	readChannel := getTime()
 
 	var timeOut <-chan time.Time
 
@@ -31,12 +31,14 @@ func main() {
 	}
 }
 
-func getTIme() <-chan time.Time {
+func getTime() <-chan time.Time {
 
 	writeChannel := make(chan time.Time)
 
 	go func() {
-		writeChannel <- <-time.After(3 * time.Second)
+		for {
+			writeChannel <- <-time.After(3 * time.Second)
+		}
 	}()
 
 	readChannel := (<-chan time.Time)(writeChannel)

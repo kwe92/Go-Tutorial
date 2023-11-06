@@ -5,8 +5,6 @@ import (
 	"time"
 )
 
-// TODO: review
-
 // Message: contains a channel for a reply.
 type Message struct {
 	str  string
@@ -21,6 +19,7 @@ func main() {
 
 	for i := 0; i < n; i++ {
 		// read from channel n times
+
 		msg00 := <-readChannel
 		fmt.Println(msg00.str)
 
@@ -41,15 +40,16 @@ func say(msg string) <-chan Message {
 	waitForit := make(chan bool)
 
 	go func() {
+
 		for {
 			writeChannel <- Message{
 				str:  msg,
 				wait: waitForit,
 			}
+			time.Sleep(time.Second)
 
 			<-waitForit
 
-			time.Sleep(time.Second)
 		}
 	}()
 
@@ -84,8 +84,8 @@ func fanIn[T any](ch00, ch01 <-chan T) <-chan T {
 
 }
 
-// Restoring Sequencing
+// Restoring Synchronization of Channels
 
-//   - goroutines are lockstep
 //   - Sends a channel on a channel forcing goroutine to wait its turn
 //   - Receive all messages then enable channels by sending on a private channel
+//   - Create a struct that has a wait channel

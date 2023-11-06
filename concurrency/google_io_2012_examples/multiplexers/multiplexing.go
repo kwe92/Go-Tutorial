@@ -1,7 +1,5 @@
 package main
 
-// TODO: review
-
 import (
 	"fmt"
 	"time"
@@ -65,8 +63,9 @@ func fanIn[T any](ch00, ch01 <-chan T) <-chan T {
 
 }
 
-// Multiplexer | fan-in function
+// Multiplexer | fan-in function | remove channel lockstep
 
 //   - two independant communications are combined into one over a shared medium
-//   - whoever is ready first speaks first
-//   - run independent goroutines out of sequence
+//   - in the case of channels we are combining two or more channels into one channel through a fan-in function
+//   - whichever channel is ready first communicates first removing the channel lockstep and decouples the channels
+//   - multiplexing allows you to run independent goroutines out of sequence

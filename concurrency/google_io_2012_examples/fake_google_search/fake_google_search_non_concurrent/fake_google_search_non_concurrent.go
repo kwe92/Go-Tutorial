@@ -49,6 +49,8 @@ func fakeSearch(kind string) Search {
 func Google(query string) []Result {
 	results := make([]Result, 0)
 
+	// run backend services synchronously each waiting for the previous service to finish running before beginning to execute
+
 	results = append(results, Web(query))
 
 	results = append(results, Image(query))

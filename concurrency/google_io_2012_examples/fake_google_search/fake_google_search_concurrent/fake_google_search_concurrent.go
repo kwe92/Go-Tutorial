@@ -57,8 +57,8 @@ func Google(query string) []Result {
 
 	resultChannel = make(chan Result)
 
-	// launch three independant goroutines that fan-in to one channel
-	// whichever goroutine is ready first writes to the channel first
+	// launch each backend service in an independant goroutine, calling and processing each backend service in parallel
+	// the goroutines then fan-in to one channel, whichever goroutine is ready first writes to the channel first
 
 	go func() {
 		resultChannel <- Web(query)

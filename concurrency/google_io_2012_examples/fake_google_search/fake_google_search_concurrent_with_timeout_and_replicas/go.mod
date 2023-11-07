@@ -1,0 +1,3 @@
+module concurrency/google_io_2012_examples/fake_google_search/fake_google_search_concurrent_with_timeout_and_replicas
+
+go 1.21.0

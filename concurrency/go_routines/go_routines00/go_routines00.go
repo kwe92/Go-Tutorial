@@ -57,7 +57,7 @@ func main() {
 // goroutines
 
 //   - independently executing functions launched by the go statement
-//   - lightweight processes managed by the GO runtime
+//   - lightweight threads managed by the GO runtime
 //   - they can be seen as extremely cheap threads
 //   - goroutines do not make the caller wait
 //   - goroutines have their own call stack and they are elastic `can grow and shrink`

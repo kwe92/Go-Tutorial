@@ -36,6 +36,50 @@ use ./basics/error_handling/errors08
 
 use ./basics/error_handling/errors09
 
+use ./concurrency/channels/channels00
+
+use ./concurrency/channels/channels01
+
+use ./concurrency/channels/channels02
+
+use ./concurrency/channels/channels03
+
+use ./concurrency/channels/channels04
+
+use ./concurrency/channels/channels05
+
+use ./concurrency/go_routines/go_routines00
+
+use ./concurrency/mutex/mutex00
+
+use ./concurrency/mutex/mutex01
+
+use ./concurrency/google_io_2012_examples/channel_generator
+
+use ./concurrency/google_io_2012_examples/multiplexers
+
+use ./concurrency/google_io_2012_examples/quit_channels/quit_channels00
+
+use ./concurrency/google_io_2012_examples/restoring_sequencing
+
+use ./concurrency/google_io_2012_examples/select_statement/select_statement00
+
+use ./concurrency/google_io_2012_examples/select_statement/select_statement01
+
+use ./concurrency/google_io_2012_examples/fake_google_search/fake_google_search_concurrent
+
+use ./concurrency/google_io_2012_examples/fake_google_search/fake_google_search_non_concurrent
+
+use ./concurrency/google_io_2012_examples/fake_google_search/fake_google_search_concurrent_with_timeout_and_replicas
+
+use ./concurrency/go_blog_concurrency_patterns/pipelines/pipelines00
+
+use ./concurrency/go_blog_concurrency_patterns/pipelines/pipelines01
+
+use ./concurrency/go_blog_concurrency_patterns/pipelines/pipelines02
+
+use ./concurrency/patterns/fanout_fanin_pattern
+
 use ./external_packages
 
 use ./multi_module/greetings
@@ -53,8 +97,6 @@ use ./postgres_sql/postgres_example_3
 use ./pointers/working_with_pointers_00
 
 use ./pointers/working_with_pointers_01
-
-use ./generics
 
 use ./http_servers_and_testing/http_servers_and_handlers00
 

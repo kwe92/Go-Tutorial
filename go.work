@@ -88,9 +88,9 @@ use ./concurrency/channels/blocking/unblocking/unblocking00
 
 use ./concurrency/channels/blocking/blocked_buffered_channel/blocked_buffered_channel00/
 
-use ./concurrency/examples/image_download
-
 use ./concurrency/channels/closing_channels/closing_channels00
+
+use ./concurrency/examples/image_download
 
 use ./external_packages
 

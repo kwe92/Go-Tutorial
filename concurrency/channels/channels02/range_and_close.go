@@ -2,57 +2,57 @@ package main
 
 import "fmt"
 
-func fibonacci(n int, ch chan int) {
-	x, y := 0, 1
-
-	for i := 0; i < n; i++ {
-
-		// write to the channel n times
-		ch <- x
-
-		x, y = y, x+y
-
-	}
-
-}
-
 func main() {
 
-	bufferSize := 10
+	ch := fibonacci(10)
 
-	ch := make(chan int, bufferSize)
-
-	// run goroutine in anonymous function
-	go func() {
-
-		// fibonacci: write n fibonacci numbers to a channel.
-		fibonacci(cap(ch), ch)
-
-		// close the channel after writing all values
-		close(ch)
-
-	}()
-
-	// read all values written to the channel
+	// read all values written to the channel until closed
 	for ele := range ch {
-
 		fmt.Println("read from channel")
 		fmt.Println("Ele:", ele)
 	}
 
 	// check if a channel is open | false indicates a closed channel
-	_, ok := <-ch
-
-	fmt.Println("open channel:", isopenChannel(ok))
+	fmt.Println("open channel:", isopen(ch))
 
 }
 
-func isopenChannel(isOpen bool) string {
-	if isOpen {
-		return "yes"
+func fibonacci(n int) <-chan int {
+
+	out := make(chan int)
+
+	x, y := 0, 1
+
+	// run goroutine in anonymous function
+
+	go func() {
+
+		// fibonacci: write n fibonacci numbers to a channel.
+		for i := 0; i < n; i++ {
+
+			// write to the channel n times
+			out <- x
+
+			x, y = y, x+y
+
+		}
+
+		// close the channel after writing all values
+		close(out)
+	}()
+
+	return out
+
+}
+
+func isopen[T interface{}](in <-chan T) bool {
+
+	if _, ok := <-in; ok {
+		return true
 	} else {
-		return "no"
+		return false
 	}
+
 }
 
 // Channel Close | Sender
@@ -70,4 +70,4 @@ func isopenChannel(isOpen bool) string {
 // Channels & for range
 
 //   - receives values from a channel until the channel is closed
-//   - unlike other for range operations you only receive the value and not the index
+//   - unlike other for range operations you only receive the one value instead of two

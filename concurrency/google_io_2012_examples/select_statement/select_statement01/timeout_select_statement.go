@@ -7,8 +7,6 @@ import (
 
 func main() {
 
-	n := 5
-
 	readChannel := getTime()
 
 	var timeOut <-chan time.Time
@@ -16,15 +14,15 @@ func main() {
 	// timeout communication after one second.
 	timeOut = time.After(time.Second)
 
-	for i := 0; i < n; i++ {
+	for {
 		select {
 
 		case val := <-readChannel:
 			fmt.Println(val)
 
 		// after timeout if no other channel has returned the case statement is invoked breaking out of the loop
-		case <-timeOut:
-			fmt.Println("channel communication timeout...please try again.")
+		case timeout := <-timeOut:
+			fmt.Printf("%v: channel communication timeout...please try again.\n", timeout)
 			return
 
 		}
@@ -36,9 +34,10 @@ func getTime() <-chan time.Time {
 	writeChannel := make(chan time.Time)
 
 	go func() {
-		for {
-			writeChannel <- <-time.After(3 * time.Second)
-		}
+
+		writeChannel <- <-time.After(3 * time.Second)
+
+		close(writeChannel)
 	}()
 
 	readChannel := (<-chan time.Time)(writeChannel)
@@ -48,7 +47,7 @@ func getTime() <-chan time.Time {
 
 // Timing Out Select Statements
 
-//   - you can timeout select statements by adding a case that reads a call from time.After
+//   - you can timeout select statements by adding a default case that reads a call from time.After
 
 // time.After
 

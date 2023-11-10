@@ -30,6 +30,7 @@ func say(msg string) <-chan string {
 			writeChannel <- msg
 			time.Sleep(500 * time.Millisecond)
 		}
+
 	}()
 
 	readChannel := (<-chan string)(writeChannel)
@@ -40,16 +41,18 @@ func say(msg string) <-chan string {
 
 // fanIn: write two channels to one channel concurrently and return the channel
 func fanIn[T any](ch00, ch01 <-chan T) <-chan T {
-	writeChannel := make(chan T)
+	out := make(chan T)
 
 	go func() {
+
+		// write to the first available channel, if no channels are available execute the default case
 		for {
 			select {
 			case var00 := <-ch00:
-				writeChannel <- var00
+				out <- var00
 
 			case var01 := <-ch01:
-				writeChannel <- var01
+				out <- var01
 			default:
 				fmt.Println("Waiting for a channel...")
 				time.Sleep(time.Millisecond * 100)
@@ -57,18 +60,15 @@ func fanIn[T any](ch00, ch01 <-chan T) <-chan T {
 		}
 	}()
 
-	readChannel := (<-chan T)(writeChannel)
-
-	return readChannel
+	return out
 }
 
 // Select Statement
 
-//   - a control structure unique to concurrency
-//   - select statements are somewhat like switch statements
-//   - each case instead of being an expression is a communication `Send or Receive to a channel`
-//   - controls the behavior of a program based on what communications
-//     are able to proceed at any given moment
+//   - a control structure unique to concurrency, used to route data along multiple channels
+//   - select statements are switch statements for channel operations
+//   - each case instead of being an expression is a communication `Send or Receive too or from a channel respectively`
+//   - controls the behavior of a program based on what communications are able to proceed at any given moment
 //   - provides a way to handle multiple channels
 //   - all channels are evaluated
 //   - the selection blocks or runs the default case until a channel is ready to communicate

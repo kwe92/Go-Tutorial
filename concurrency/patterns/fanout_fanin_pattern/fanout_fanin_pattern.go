@@ -13,16 +13,22 @@ func main() {
 
 	in := generator(1, 1, 2, 3, 5, 8)
 
-	// Run three goroutines processing the same channel distributing the work
+	// Run six goroutines processing the same channel distributing the work
 
-	squaredChannel00 := square(in)
+	worker00 := square(in)
 
-	squaredChannel01 := square(in)
+	worker01 := square(in)
 
-	squaredChannel02 := square(in)
+	worker02 := square(in)
 
-	// fanin the results of all three goroutines.
-	out := merge[int](squaredChannel00, squaredChannel01, squaredChannel02)
+	worker03 := square(in)
+
+	worker04 := square(in)
+
+	worker05 := square(in)
+
+	// fanin the results of all goroutines.
+	out := merge[int](worker00, worker01, worker02, worker03, worker04, worker05)
 
 	// for num := range squaredChannel00 {
 	// 	fmt.Println(num)
@@ -53,12 +59,13 @@ func generator(nums ...int) <-chan int {
 }
 
 func square(in <-chan int) <-chan int {
+
 	out := make(chan int)
 
 	go func() {
 
 		for num := range in {
-			time.Sleep(500 * time.Millisecond)
+			time.Sleep(200 * time.Millisecond)
 
 			out <- num * num
 		}
@@ -75,7 +82,7 @@ func merge[T interface{}](cs ...<-chan T) <-chan T {
 
 	out := make(chan T)
 
-	// define a closure that writes all values from a channel into the input channel and reduces the wait group counter by 1
+	// define a closure that writes all values from a channel into the out channel and reduces the wait group counter by 1
 	outputClosure := func(in <-chan T) {
 		for val := range in {
 			out <- val

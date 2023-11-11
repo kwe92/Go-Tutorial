@@ -11,10 +11,10 @@ func main() {
 	// main function start time
 	start := time.Now()
 
+	// create a receiver channel of integers
 	in := generator(1, 1, 2, 3, 5, 8)
 
-	// Run six goroutines processing the same channel distributing the work
-
+	// fan-out stage: distribute workload accross multiple goroutines processing the same channel
 	worker00 := square(in)
 
 	worker01 := square(in)
@@ -27,7 +27,7 @@ func main() {
 
 	worker05 := square(in)
 
-	// fanin the results of all goroutines.
+	// fan-in stage: combine results of all goroutines into a single channel.
 	out := merge[int](worker00, worker01, worker02, worker03, worker04, worker05)
 
 	// for num := range squaredChannel00 {

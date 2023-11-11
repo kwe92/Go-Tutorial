@@ -9,11 +9,11 @@ func main() {
 
 	n := 20
 
-	readChannel := fanIn[string](say("hello"), say("goodbye"))
+	ch := fanIn[string](say("hello"), say("goodbye"))
 
 	for i := 0; i < n; i++ {
 		// read from channel n times
-		fmt.Println(<-readChannel)
+		fmt.Println(<-ch)
 
 	}
 
@@ -23,29 +23,35 @@ func main() {
 
 func say(msg string) <-chan string {
 
-	writeChannel := make(chan string)
+	out := make(chan string)
 
 	go func() {
+
+		defer func() {
+			close(out)
+			fmt.Println("channel closed")
+		}()
 		for {
-			writeChannel <- msg
+			out <- msg
 			time.Sleep(500 * time.Millisecond)
 		}
 
 	}()
 
-	readChannel := (<-chan string)(writeChannel)
-
-	return readChannel
+	return out
 
 }
 
 // fanIn: write two channels to one channel concurrently and return the channel
 func fanIn[T any](ch00, ch01 <-chan T) <-chan T {
+
 	out := make(chan T)
 
 	go func() {
 
-		// write to the first available channel, if no channels are available execute the default case
+		defer close(out)
+
+		// receive from the first available channel, if no channels are available execute the default case
 		for {
 			select {
 			case var00 := <-ch00:

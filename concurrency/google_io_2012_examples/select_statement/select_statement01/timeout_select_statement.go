@@ -2,53 +2,64 @@ package main
 
 import (
 	"fmt"
+	"sync"
 	"time"
 )
 
 func main() {
 
-	n := 5
-
-	readChannel := getTime()
+	ch := getTime()
 
 	var timeOut <-chan time.Time
 
-	// timeout communication after one second.
-	timeOut = time.After(time.Second)
+	// timeout communication after two second.
+	timeOut = time.After(2 * time.Second)
 
-	for i := 0; i < n; i++ {
-		select {
+	var waitGroup sync.WaitGroup
 
-		case val := <-readChannel:
-			fmt.Println(val)
+	waitGroup.Add(1)
 
-		// after timeout if no other channel has returned the case statement is invoked breaking out of the loop
-		case <-timeOut:
-			fmt.Println("channel communication timeout...please try again.")
-			return
+	go func() {
 
+		defer waitGroup.Done()
+
+		for {
+			select {
+
+			case val := <-ch:
+				fmt.Println(val)
+				return
+
+			// after timeout if no other channel has returned the case statement is invoked breaking out of the loop
+			case timeout := <-timeOut:
+				fmt.Printf("%v: channel communication timeout...please try again.\n", timeout)
+				return
+
+			}
 		}
-	}
+
+	}()
+
+	waitGroup.Wait()
 }
 
 func getTime() <-chan time.Time {
 
-	writeChannel := make(chan time.Time)
+	out := make(chan time.Time)
 
 	go func() {
-		for {
-			writeChannel <- <-time.After(3 * time.Second)
-		}
+
+		out <- <-time.After(3 * time.Second)
+
+		close(out)
 	}()
 
-	readChannel := (<-chan time.Time)(writeChannel)
-
-	return readChannel
+	return out
 }
 
 // Timing Out Select Statements
 
-//   - you can timeout select statements by adding a case that reads a call from time.After
+//   - you can timeout select statements by adding a default case that reads a call from time.After
 
 // time.After
 

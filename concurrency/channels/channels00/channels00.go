@@ -35,19 +35,19 @@ func main() {
 
 	// channels must be created before use
 
-	c := make(chan int)
+	in := make(chan int)
 
-	// distribute the summation of the values Slice between two GO routines
+	// fan-out: distribute the summation of the values Slice between two GO routines
 
-	go sum(chunk00, c) // write to channel once
+	go sum(chunk00, in) // write to channel once
 
-	go sum(chunk01, c) // write to channel a second time
+	go sum(chunk01, in) // write to channel a second time
 
 	// read each value stored in the channel
 
-	chunk00Result := <-c
+	chunk00Result := <-in
 
-	chunk01Result := <-c
+	chunk01Result := <-in
 
 	fmt.Println(chunk00Result + chunk01Result)
 
@@ -55,9 +55,16 @@ func main() {
 
 // Channels
 
-//   - a typed conduit that sends and receives values
+//   - a typed conduit or pipe of communication that connects concurrent goroutines
+//   - provides bidirectional communication between two goroutines
+//   - values can be sent or received between connected goroutines
+//   - a value from a channel can only be read once even when using the underscore pattern
 //   - channels are a reference type / pointer type
 //   - the zero value for a channel is nil
+//   - the components of a channel are:
+//     ~ Sender ~ Buffer (optional) ~ Receiver
+//   - channels can be viewed as streams of data
+//   - unbuffered channels must have a 1 to 1 mapping for reading and writing or the goroutines will deadlock
 
 // Channel Operator: <-
 
@@ -67,8 +74,8 @@ func main() {
 
 // Reading Channel Values
 
-//   - a value can only be read once
-//   - if multiple go-routines read from the same channel only one of them will receive the value
+//   - a channels value can only be read once regardless of use or ignoring the value with the underscore pattern
+//   - if multiple goroutines read from the same channel only one of them will receive the value regardless of use
 
 // Channel Types
 
@@ -78,9 +85,9 @@ func main() {
 // Synchronization (Goroutines Communicate & Synchronize)
 
 //   - a sender or receiver can initiate synchronization
-//   - <-ch receiver channels wait for a value to be sent
-//   -  ch <- sender channels wait for a receiver to be ready
-//   - sends and receives are blocked until the other side is ready
+//   - receiver channels `<-ch` wait for a value to be sent
+//   - sender channels ` ch <-` wait for a receiver to be ready
+//   - sends and receives are blocked until the one side is ready
 //   - senders and receivers execute synchronously even though go routines are an asynchronous operation
 //   - a sender and receiver must be ready to work together or they will wait on one another indefinitely
 //     or until the channel is closed

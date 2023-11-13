@@ -60,6 +60,7 @@ func fibonacci(ch chan int, done chan struct{}) {
 
 // Select Statement
 
+//   - a switch statement for channel operations
 //   - gives a goroutine the ability to wait on multiple communication operations
 //   - the select blocks until one of the cases can run and then runs that case
 //   - if multiple cases are ready then one is executed at random

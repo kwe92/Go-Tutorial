@@ -80,6 +80,18 @@ use ./concurrency/go_blog_concurrency_patterns/pipelines/pipelines02
 
 use ./concurrency/patterns/fanout_fanin_pattern
 
+use ./concurrency/channels/blocking/blocked_receiver
+
+use ./concurrency/channels/blocking/blocked_sender
+
+use ./concurrency/channels/blocking/unblocking/unblocking00
+
+use ./concurrency/channels/blocking/blocked_buffered_channel/blocked_buffered_channel00/
+
+use ./concurrency/channels/closing_channels/closing_channels00
+
+use ./concurrency/examples/image_download
+
 use ./external_packages
 
 use ./multi_module/greetings

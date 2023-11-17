@@ -5,19 +5,22 @@ import "fmt"
 func main() {
 	buffered := make(chan int, 1)
 
-	buffered <- 42
-
-	fmt.Println(<-buffered)
+	defer close(buffered)
 
 	buffered <- 42
 
 	fmt.Println(<-buffered)
-
-	// The bellow code will cause a deadlock as we are trying to write two values in a buffer that can only hold one
-
-	buffered <- 42
 
 	buffered <- 43
+
+	fmt.Println(<-buffered)
+
+	// The bellow code will cause a deadlock
+	// we are trying to write two values in a buffered channel that can only hold one
+
+	// buffered <- 42
+
+	// buffered <- 43
 
 }
 

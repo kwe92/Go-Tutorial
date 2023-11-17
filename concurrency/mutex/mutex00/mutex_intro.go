@@ -3,53 +3,72 @@ package main
 import (
 	"fmt"
 	"sync"
-	"time"
 )
 
-// SafeCounter: safe to use concurrently
+// SafeCounter: protected data safe for concurrent use
 type SafeCounter struct {
-	mu  sync.Mutex
-	val map[string]int
+	lock *sync.Mutex
+	val  map[string]int
 }
 
 func (sc *SafeCounter) Increment(key string) {
-	// invoke lock to protect the value
-	sc.mu.Lock()
+
+	// lock data structure to protect value
+	sc.lock.Lock()
 
 	sc.val[key]++
 
-	// unlock protected value after doing something
-	sc.mu.Unlock()
+	// unlock data structure to unprotect value after doing something
+	sc.lock.Unlock()
 }
 
 func (sc *SafeCounter) Value(key string) int {
 
-	sc.mu.Lock()
+	sc.lock.Lock()
 
-	// we defer because we are returning a value and want to unlock after the value is returned
-	defer sc.mu.Unlock()
+	// defer Unlock because we are returning and want to unlock after returning
+	defer sc.lock.Unlock()
 
 	return sc.val[key]
 }
 
 func main() {
+
 	safeCounter := SafeCounter{
-		val: map[string]int{},
+		val:  map[string]int{},
+		lock: &sync.Mutex{},
 	}
 
-	for i := 0; i < 10; i++ {
-		go safeCounter.Increment("steps")
-		go safeCounter.Increment("steps")
+	n := 10
+
+	waitGroup := &sync.WaitGroup{}
+
+	waitGroup.Add(n * 2)
+
+	for i := 0; i < n; i++ {
+
+		go func() {
+			safeCounter.Increment("steps")
+			waitGroup.Done()
+		}()
+
+		go func() {
+			safeCounter.Increment("steps")
+			waitGroup.Done()
+		}()
 
 	}
 
-	time.Sleep(time.Second)
+	waitGroup.Wait()
+
 	fmt.Println(safeCounter.Value("steps"))
 }
 
 // Mutex
 
-//   - mutex is a data structure that implements the concept of mutual exclusion
+//   - a shared memory locking mechanism used synchronize the access of a shared mutable resource
+//     between multiple concurrent operations
+//   - a data structure that implements the concept of mutual exclusion
 
 // Mutual Exclusion
 

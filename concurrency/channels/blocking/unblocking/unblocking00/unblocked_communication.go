@@ -11,7 +11,13 @@ func main() {
 	go func() {
 		unbuffered <- 42
 
-		// close the channel | will not deadlock if ranged over
+		unbuffered <- 43
+
+		unbuffered <- 44
+
+		unbuffered <- 45
+
+		// close the channel after sending all values | will not deadlock if ranged over
 		close(unbuffered)
 
 	}()
@@ -26,6 +32,5 @@ func main() {
 
 // Unbuffered Channels: Sender and Reciever Required
 
-//   - you need at least two goroutines for a channel to communicate
-//   - a sender and a receiver
-//   - the two goroutines are synchronized to communicate at a certain point
+//   - you need at least two goroutines for a unbuffered channel to communicate
+//   - a sender and a receiver, the two goroutines are synchronized to communicate at a certain point

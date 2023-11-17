@@ -2,28 +2,17 @@ package main
 
 import "fmt"
 
-// sum: sums the slice of integers passed in and write the result to the channel
-func sum(values []int, c chan int) {
-
-	var result int // initialized to the zero-value : 0
-
-	for _, ele := range values {
-		result += ele
-	}
-
-	// send result to channel
-	c <- result
-}
-
 func main() {
+
+	// values to process
 	values := []int{1, 2, 3, 4, 5, 6, 7}
 
-	// split index
-	splitAtIndex := len(values) / 2 // 3
+	// index to split at
+	splitAtIndex := len(values) / 2
 
 	fmt.Println(splitAtIndex)
 
-	// split data in half | if odd length the second chunk will have one additional element
+	// split data | if odd length the second chunk will have one additional element
 
 	chunk00 := values[:splitAtIndex] // {1,2,3}
 
@@ -33,15 +22,14 @@ func main() {
 
 	fmt.Println(chunk01)
 
-	// channels must be created before use
-
+	// create channel of integers
 	in := make(chan int)
 
 	// fan-out: distribute the summation of the values Slice between two GO routines
 
-	go sum(chunk00, in) // write to channel once
+	go sum(chunk00, in) // sum first chunk and write first value
 
-	go sum(chunk01, in) // write to channel a second time
+	go sum(chunk01, in) // sum second chunk and write second value
 
 	// read each value stored in the channel
 
@@ -51,6 +39,20 @@ func main() {
 
 	fmt.Println(chunk00Result + chunk01Result)
 
+}
+
+// sum: sums the slice of integers passed in and write the result to the channel
+func sum(values []int, in chan<- int) {
+
+	var result int
+
+	// sum the values slice passed in
+	for _, ele := range values {
+		result += ele
+	}
+
+	// send result to channel
+	in <- result
 }
 
 // Channels

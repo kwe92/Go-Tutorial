@@ -10,6 +10,8 @@ func main() {
 	// launch goroutine that writes to the channel
 	go func() {
 		functionThatWritesToChannel(ch)
+
+		close(ch)
 	}()
 
 	// read from the buffered channel based on its capacity

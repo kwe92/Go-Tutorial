@@ -32,9 +32,11 @@ func main() {
 	decoder := json.NewDecoder(resp.Body)
 
 	// call Decode method of decoder reading and storing the JSON-encoded value into the value pointed to
+
 	decoder.Decode(&quotes)
 
 	// print the result to console
+
 	fmt.Printf("quote: %+v", quotes)
 
 }

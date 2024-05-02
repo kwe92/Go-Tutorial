@@ -191,3 +191,5 @@ use ./tour_of_go_lessons/generics00
 use ./tour_of_go_lessons/generics01
 
 use ./basics/retrieve_data_from_api
+
+use ./package_learning/package_gjson

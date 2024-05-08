@@ -10,16 +10,22 @@ import (
 
 func main() {
 
+	// incrementer
 	var counter int
 
+	// incrementer for change amounts
 	var changeCounter float64
 
+	// array of change amounts ranging from $0.01 to $1.00
 	var changeAmounts []float64
 
-	// var remainders []int
+	// interger representation of nearest amount of change required to round to nearest dollar
+	var nearestDollarAmounts []int
 
 	for counter < 100 {
+
 		counter += 1
+
 		changeCounter += .01
 
 		changeAmounts = append(changeAmounts, roundToNearest(changeCounter))
@@ -28,9 +34,22 @@ func main() {
 	fmt.Println(changeAmounts)
 
 	for _, change := range changeAmounts {
-		fmt.Println(int(change * 100))
+
+		nearestAmount, _ := getNearestAmount(int(change * 100))
+
+		nearestDollarAmounts = append(nearestDollarAmounts, nearestAmount)
 
 	}
+
+	fmt.Println(nearestDollarAmounts)
+
+	for i := 0; i < len(changeAmounts); i++ {
+
+		fmt.Printf("%d + %d  = %d\n", int(changeAmounts[i]*100), nearestDollarAmounts[i], (int(changeAmounts[i]*100) + nearestDollarAmounts[i]))
+
+	}
+
+	// fmt.Println(totals)
 
 	// for _, val := range change {
 	// 	fmt.Println(getRemanider())
@@ -49,10 +68,10 @@ func main() {
 
 }
 
-// GetRemanider: expects an integer representation of currency and returns the remainder that is needed to round to the nearest dollar.
+// getNearestAmount: expects an integer representation of currency and returns the remainder that is needed to round to the nearest dollar.
 //
 // e.g. 12550 == $125.50 returning the integer 50 to get 12550 + 50 == $125.50 + $0.50 == $126.00
-func getRemanider(transactionAmount int) (int, error) {
+func getNearestAmount(transactionAmount int) (int, error) {
 
 	// convert to float
 	transactionAmountInUSD := float64(transactionAmount) / 100
@@ -60,15 +79,11 @@ func getRemanider(transactionAmount int) (int, error) {
 	// convert float to a string with trailing 0's if there is no change
 	stringTransactionAmountInUSD := fmt.Sprintf("%.2f", transactionAmountInUSD)
 
-	fmt.Println(stringTransactionAmountInUSD)
-
 	// split string on `.` and get change which is the second element
 	stringChange := strings.Split(fmt.Sprint(stringTransactionAmountInUSD), ".")[1]
 
 	// convert string remainder change to integer
 	change, err := strconv.Atoi(stringChange)
-
-	fmt.Println(change)
 
 	if err != nil {
 		log.Printf("ERROR in GetRemanider: %s", err.Error())
@@ -80,9 +95,9 @@ func getRemanider(transactionAmount int) (int, error) {
 		return 100, nil
 	}
 
-	remainder := 100 - change
+	nearestAmount := 100 - change
 
-	return remainder, nil
+	return nearestAmount, nil
 
 }
 

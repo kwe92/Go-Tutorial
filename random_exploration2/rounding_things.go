@@ -49,23 +49,6 @@ func main() {
 
 	}
 
-	// fmt.Println(totals)
-
-	// for _, val := range change {
-	// 	fmt.Println(getRemanider())
-
-	// }
-
-	// transactionAmount := 67
-
-	// remainder, err := getRemanider(transactionAmount)
-
-	// if err != nil {
-	// 	return
-	// }
-
-	// fmt.Printf("remainder: %.2f\n", (float64(remainder) / 100))
-
 }
 
 // getNearestAmount: expects an integer representation of currency and returns the remainder that is needed to round to the nearest dollar.

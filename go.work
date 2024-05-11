@@ -128,6 +128,8 @@ use ./http_servers_and_testing/http_handlers_and_logs00
 
 use ./http_servers_and_testing/middleware_and_handlers00
 
+use ./http_servers_and_testing/tcp_server
+
 use ./random_exploration
 
 use ./tour_of_go_lessons/hash_maps00

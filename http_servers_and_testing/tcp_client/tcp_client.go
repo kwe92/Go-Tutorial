@@ -10,8 +10,8 @@ import (
 // Creating a Client Using Sockets
 
 var (
-	PROTOCOL = "tcp"            // the agreed upon communication protocol : Transmission Control Protocol
-	HOSTNAME = "127.0.0.1:8080" // the server and port number you want to connect to
+	PROTOCOL = "tcp"            // communication protocol: Transmission Control Protocol
+	HOSTNAME = "127.0.0.1:8080" // server and port number you want to connect to
 )
 
 func main() {
@@ -39,11 +39,11 @@ func main() {
 		serverConnection.Read(buff)
 
 		if err != nil {
-			fmt.Printf("error reeading data from client connection in handleClientConnection: %s\n", err.Error())
+			fmt.Printf("error reading data from server: %s\n", err.Error())
 			return
 		}
 
-		fmt.Printf("data recieved from server connection: %s\n", buff)
+		fmt.Printf("data recieved from server connection: %s\n", string(buff))
 
 		serverConnection.Close()
 

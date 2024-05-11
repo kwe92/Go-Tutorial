@@ -80,7 +80,7 @@ func handleClientConnection(ClientConn net.Conn) {
 
 //       - Port number: Specifies the specific application or service on that device.
 
-//       - Protocol: Defines the rules of communication (e.g., TCP (ordered, reliable and consistent) or UDP (potentially unordered, sent in packets that can droped)).
+//       - Protocol: Defines the rules of communication (e.g., TCP (ordered, reliable, consistent, and connection oriented) or UDP (unreliable, potentially unordered, sent in packets that can droped, connectionless)).
 
 // How Sockets Work
 
@@ -153,5 +153,14 @@ func handleClientConnection(ClientConn net.Conn) {
 //   - the remote endpoint (socket) is set to the IP address and port of the client
 
 // TODO: this can definitely be worded better
+
 //   - the afromentioned process allows servers to concurrently process requests by always listen for incoming client
 //     requests to connect on the original listening socket
+
+// Client Server Applications
+
+//   - servers provided a service such as processing database queries or transmitting real time information
+
+//   - clients use the services provided by a server to display information to the user, be it some successful indication of an action or changing some mutable state on the client side
+
+// ? What Are The Component Parts That Allow A Client and a Server to Communicate?

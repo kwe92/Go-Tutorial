@@ -15,7 +15,8 @@ var (
 
 func main() {
 	// create a new socket of type TCP bound to port 8080
-	// listening for an incoming connection from a client
+	// listening for incoming connection requests from clients
+	// the socket stays constant and does not change
 	serverListener, err := net.Listen(PROTOCOL, PORT)
 
 	if err != nil {
@@ -27,7 +28,9 @@ func main() {
 	// run server in infinite while loop
 	for {
 
-		// Accept incoming client connections
+		// accept incoming client connection
+		// the server creates a new socket to communicate with
+		// the new socket has its remote IP address and remote port set to that of the clients
 		ClientConn, err := serverListener.Accept()
 
 		if err != nil {
@@ -35,7 +38,7 @@ func main() {
 			continue
 		}
 
-		// launch a new Go routine to handle multiple client connections to the server
+		// launch a new Go routine (thread) to handle multiple client connections (sockets) to the server
 		go handleClientConnection(ClientConn)
 
 	}
@@ -45,11 +48,10 @@ func main() {
 func handleClientConnection(ClientConn net.Conn) {
 	// close the connection to the client when finished
 
-	// defer ClientConn.Close()
-
 	// create a buffer to read incoming data
 	buff := make([]byte, 1024)
 
+	// socket input stream
 	_, err := ClientConn.Read(buff)
 
 	if err != nil {
@@ -59,7 +61,8 @@ func handleClientConnection(ClientConn net.Conn) {
 
 	fmt.Printf("data recieved from client connection: %s\n", buff)
 
-	ClientConn.Write(buff)
+	// socket output stream
+	ClientConn.Write([]byte(fmt.Sprintf("ECHO: %s", string(buff))))
 }
 
 // What is a Socket?

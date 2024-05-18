@@ -47,3 +47,9 @@ type myHandler struct{}
 func (h *myHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "This is just a standard server")
 }
+
+// When to Use File Server to Render HTML Documents
+
+//   - When server static content like (images, css, javascript and other files that are not dynamically generated or require user input)
+
+//   - if your website is constructed of entirely static HTML pages

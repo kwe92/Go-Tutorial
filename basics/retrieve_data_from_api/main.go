@@ -37,7 +37,7 @@ func main() {
 
 	// print the result to console
 
-	fmt.Printf("quote: %+v", quotes)
+	fmt.Printf("quote: %+v\n", quotes)
 
 }
 

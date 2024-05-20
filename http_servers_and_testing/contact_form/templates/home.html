@@ -1,4 +1,8 @@
-<!-- Create Contact US Page: https://dribbble.com/shots/19569404-Contact-Us -->
+<!-- Create Contact US Page: https://dribbble.com/shots/18061660-Contact-us -->
+<!-- https://dribbble.com/shots/16148538-contact-us-page -->
+<!-- https://dribbble.com/shots/18739948-Contact-us-UI-design -->
+
+ <!-- TODO: Review -->
 
 
 <!DOCTYPE html>
@@ -7,23 +11,43 @@
         <title>Form Validation With GO</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+        <style type="text/css">
+            .error {color: red;}
+        </style>
     </head>
     <body>
         <h1>Contact Us</h1>
-        <form>
+        <form action="/" method="POST" novalidate>
             <div>
-                <p><label>Your Email:</label></p>
-                <p><input type="email" name="email"></p>
+                {{ with .Errors.name }}
+                <p class="error">{{ . }}</p>
+                {{ end }}
+                <p><label>Name:</label></p>
+                <p><input type="text" name="name"></p>
+            </div>
+            <div>
+                {{ with .Errors.email }}
+                <p class="error">{{ . }}</p>
+                {{ end }}
+                <p><label>Email:</label></p>
+                <p><input type="email" name="email" value="{{ .Email }}"></p>
             </div>
 
             <div>
+                {{ with .Errors.content }}
+                <p class="error">{{ . }}</p>
+                {{ end }}
                 <p><label>Message:</label></p>
-                <p><textarea name="content"></textarea></p>
+                <p><textarea name="content">{{ .Content }}</textarea></p>
             </div>
 
             <div>
-                <input type="submit" value="send message">
+                <input type="submit" value="Send">
             </div>
         </form>
     </body>
 </html>
+
+<!-- TODO: add notes on working with templates -->
+
+<!-- Accessing Map Values Using . Notation -->

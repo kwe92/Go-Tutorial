@@ -56,7 +56,7 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 
 	aboutResponseBody := "And the light shineth in darkness; and the darkness comprehended it not."
 
-	fmt.Fprintf(w, aboutResponseBody)
+	fmt.Fprint(w, aboutResponseBody)
 
 	fmt.Println("Response headers: ", w.Header())
 

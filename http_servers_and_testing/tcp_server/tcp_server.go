@@ -6,6 +6,8 @@ import (
 	"net"
 )
 
+// TODO: Review
+
 // Creating a Echo Server Using Sockets
 
 var (
@@ -64,6 +66,10 @@ func handleClientConnection(ClientConn net.Conn) {
 	// socket output stream
 	ClientConn.Write([]byte(fmt.Sprintf("ECHO: %s", string(buff))))
 }
+
+// TODO: What is a TCP?
+
+// TODO: What is a TCP Server?
 
 // What is a Socket?
 

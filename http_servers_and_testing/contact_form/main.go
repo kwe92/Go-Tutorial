@@ -1,8 +1,13 @@
 // GOAL: Process and Validate HTML Form in GO Web Application
 
+// TODO: Review
+
+// TODO: break apart into diffrent modules
+
 package main
 
 import (
+	model "contact-form-validation/models"
 	"fmt"
 	"html/template"
 	"log"
@@ -29,7 +34,7 @@ func setupRouter() *gin.Engine {
 	// setup route handlers
 
 	router.GET("/", Home)
-	// router.GET("/")
+	router.POST("/", ValidateForm)
 	router.GET("/confirmation", Confirmation)
 
 	return router
@@ -43,10 +48,32 @@ func Home(c *gin.Context) {
 
 func ValidateForm(c *gin.Context) {
 	// Step 1: Validate form
+	contactForm := &model.ContactForm{
+		Name:    c.Request.FormValue("name"),
+		Email:   c.Request.FormValue("email"),
+		Content: c.Request.FormValue("content"),
+	}
 
-	// Step 2: Send message in an email
+	log.Printf("received contact form: %+v", contactForm)
+
+	if !contactForm.Validate() {
+		// re-render home page with updated errors if validation fails
+		render(c.Writer, "http_servers_and_testing/contact_form/templates/home.html", contactForm)
+		log.Printf("received contact form with errors: %+v", contactForm)
+
+		return
+	}
+
+	// Step 2: Send contact form message in an email
+	if err := contactForm.SendConfirmationEmail(); err != nil {
+		log.Print(err)
+		http.Error(c.Writer, "Sorry, something went wrong", http.StatusInternalServerError)
+		return
+	}
 
 	// Step 3: Redirect to confirmation page
+	// if validation is successful redirect the user to a new page
+	http.Redirect(c.Writer, c.Request, "/confirmation", http.StatusSeeOther)
 }
 
 func Confirmation(c *gin.Context) {
@@ -99,3 +126,5 @@ func render(w http.ResponseWriter, filename string, data interface{}) {
 //   - a Go template acts as a blueprint for generating HTML
 //     where the actual content is dynamically filled in
 //     based on data and logic from your application
+
+// TODO: look into https://pkg.go.dev/github.com/gorilla/schema for converting structs to and from forms

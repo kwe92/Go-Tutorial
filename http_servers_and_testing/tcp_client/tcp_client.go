@@ -7,6 +7,8 @@ import (
 	"time"
 )
 
+// TODO: Review
+
 // Creating a Client Using Sockets
 
 var (
@@ -63,4 +65,8 @@ func main() {
 
 // Port Numbers Range
 
-//   - ports are in the range of uint16, a sub-set of whole numbers ranging from 0 to 65,535
+//   - ports are in the range of uint16, a sub-set of whole numbers ranging from 0 to 65,535 i.e. 2 ** 16
+
+// TCP Client Side:
+
+//   - writes to the TCP Server and then waits for a response

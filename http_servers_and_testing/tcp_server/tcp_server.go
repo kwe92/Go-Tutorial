@@ -69,6 +69,10 @@ func handleClientConnection(ClientConn net.Conn) {
 
 // TODO: What is a TCP?
 
+// Transmissino Control Protocol
+
+//   -
+
 // TODO: What is a TCP Server?
 
 // What is a Socket?

@@ -7,10 +7,10 @@ import (
 	"github.com/go-mail/mail"
 )
 
-// TODO: Review
-
+// regular expression to check if the input string is an email.
 var rxEmail = regexp.MustCompile(".+@.+\\..+")
 
+// ContactForm represents our applications contact form
 type ContactForm struct {
 	Name    string
 	Email   string
@@ -18,13 +18,16 @@ type ContactForm struct {
 	Errors  map[string]string
 }
 
+// Validate: validates form if no errors are encountered the form is considered valid.
 func (c *ContactForm) Validate() bool {
+	// create a map to add errors to for each input
 	c.Errors = make(map[string]string)
 
 	if strings.TrimSpace(c.Name) == "" {
 		c.Errors["name"] = "name can not be empty"
 	}
 
+	// check email validity
 	validEmail := rxEmail.Match([]byte(c.Email))
 
 	if !validEmail {
@@ -38,6 +41,7 @@ func (c *ContactForm) Validate() bool {
 	return len(c.Errors) == 0
 }
 
+// SendConfirmationEmail: Send comfirmation email to user upon successful form validation
 func (c *ContactForm) SendConfirmationEmail() error {
 
 	email := mail.NewMessage()
@@ -52,9 +56,9 @@ func (c *ContactForm) SendConfirmationEmail() error {
 
 	// credentails can be found in mailtrap sandbox
 
-	username := ""
+	username := "" //TODO: place your mailtrap username here
 
-	password := ""
+	password := "" //TODO: place your mailtrap password here
 
 	return mail.NewDialer("sandbox.smtp.mailtrap.io", 25, username, password).DialAndSend(email)
 

@@ -6,8 +6,6 @@ import (
 	"net"
 )
 
-// TODO: Review
-
 // Creating a Echo Server Using Sockets
 
 var (
@@ -27,7 +25,7 @@ func main() {
 
 	fmt.Printf("TCP server started successfully, listening on port %s\n", PORT)
 
-	// run server in infinite while loop
+	// run server in infinite while loop / start server
 	for {
 
 		// accept incoming client connection
@@ -53,7 +51,7 @@ func handleClientConnection(ClientConn net.Conn) {
 	// create a buffer to read incoming data
 	buff := make([]byte, 1024)
 
-	// socket input stream
+	// socket input stream / read incoming request data
 	_, err := ClientConn.Read(buff)
 
 	if err != nil {
@@ -67,13 +65,21 @@ func handleClientConnection(ClientConn net.Conn) {
 	ClientConn.Write([]byte(fmt.Sprintf("ECHO: %s", string(buff))))
 }
 
-// TODO: What is a TCP?
-
 // Transmissino Control Protocol
 
-//   -
+//   - a connection based protocol used to server consistant reliable ordered communication between two programs
 
-// TODO: What is a TCP Server?
+//   - built in error handling to ensure all data that was sent was recieved
+
+// TCP Server
+
+//   - Listens for incoming TCP connection requests (from clients)
+
+//   - upon recieving a request a connection to the client is established through a communication channel (stream)
+
+//   - depending on the type of request the server responds accordingly (this is where route handling becomes useful)
+
+//   - the server typically maintains and closes the connections (socket) when communication is finished
 
 // What is a Socket?
 
@@ -103,7 +109,7 @@ func handleClientConnection(ClientConn net.Conn) {
 
 //   - Binding
 
-//       - a socket is bound to a specified port and IP address an the machine in which it was created
+//       - a socket is bound to a specified port and IP address on the machine in which it was created
 
 //   - Connecting TCP Sockets
 
@@ -125,34 +131,34 @@ func handleClientConnection(ClientConn net.Conn) {
 
 //   - Purpose:
 
-//       - Ports identify applications
+//       - Ports: identify applications
 
-//       - Sockets enable communication between applications
+//       - Sockets: enable communication between applications
 
 //   - Type:
 
-//       - Ports are numerical identifiers
+//       - Ports: are numerical identifiers
 
-//       - Sockets are complex structures with multiple elements
+//       - Sockets: are complex structures with multiple elements
 
 //   - Scope:
 
-//       - Ports are local to a computer
+//       - Ports: are local to a computer
 
-//       - Sockets involve two endpoints on potentially different devices
+//       - Sockets: involve two endpoints on potentially different devices
 
 // Identifying TCP Connections
 
 //   - a TCP connection can be uniquely identified by
-//   - the composition of its two endpoints i.e. IP address and port number
+//     the composition of its two endpoints i.e. IP address and port number
 
-// Socket programming is an important skill for network programming
+// Building powerful network applications with socket programming and the Client-Server Model
 
-// building powerful network applications with socket programming and the Client-Server Model
+//   - socket programming is an important skill for network programming
 
 // Server Side Socket Binding
 
-//   - servers run on a specific machine identified by its host name
+//   - servers run on a specific machine identified by its hostname / ip address
 
 //   - sockets are then bound to a port number specified by some listener or mux implementation
 
@@ -165,15 +171,14 @@ func handleClientConnection(ClientConn net.Conn) {
 
 //   - the remote endpoint (socket) is set to the IP address and port of the client
 
-// TODO: this can definitely be worded better
-
 //   - the afromentioned process allows servers to concurrently process requests by always listen for incoming client
 //     requests to connect on the original listening socket
 
 // Client Server Applications
 
-//   - servers provided a service such as processing database queries or transmitting real time information
+//   - servers provided a service such as processing database queries or transmitting real-time information
 
-//   - clients use the services provided by a server to display information to the user, be it some successful indication of an action or changing some mutable state on the client side
+//   - clients use the services provided by a server to display information to the user
+//     be it some successful indication of an action or changing some mutable state on the client side
 
 // ? What Are The Component Parts That Allow A Client and a Server to Communicate?

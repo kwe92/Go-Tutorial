@@ -1,0 +1,62 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    font-family:sans-serif;
+    background-image: url("contact-us-00.avif") repeat 0 0;
+}
+
+.error {color: red;}
+
+.flex-container{
+    display: flex;
+    flex-direction: column;
+    /* background-color: DodgerBlue; */
+    width: 33%;
+            }
+
+.text-field{
+    flex:1;
+    display:block;
+    /* border:none; */
+    width:100%;
+    height: 3.5rem;
+    border-radius: 0.5rem;
+    padding-left: 1rem;
+
+} 
+
+textarea{
+    flex: 1;
+    display: block;
+    width: 100%;
+    height: 9rem;
+    border-radius: 0.5rem;
+    padding-left: 1rem;
+    padding-top: 1rem;
+}
+
+p{
+    font-size: 1.25rem; 
+    padding-bottom: 0.25rem;
+}
+
+.navbar{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.navbar-item-row{
+    display: flex;
+    flex-direction: row;
+    width: 33%;
+}
+
+.navbar-item{
+    flex: 1;
+    display: block;
+}

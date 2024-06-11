@@ -1,15 +1,162 @@
-<!-- TODO: make dynamic with templating language and add specific user congrats -->
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Form Validation With GO</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+        <style type="text/css">
+
+* {
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
+            }
+
+            body{
+                font-family:sans-serif;
+                background-image: url("http_servers_and_testing/contact_form/images/contact-us-01.png") repeat 0 0;
+                height: 100vh;
+            }
+
+            .error {color: red;}
+
+            .main-container{
+                display: flex;
+                height: 90%;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin-left: 3rem;
+            }
+
+            .flex-container{
+                display: flex;
+                flex-direction: column;
+                /* background-color: DodgerBlue; */
+                width: 33%;
+                        }
+
+            .text-field{
+                flex:1;
+                display:block;
+                /* border:none; */
+                width:100%;
+                height: 3.5rem;
+                border-radius: 0.5rem;
+                padding-left: 1rem;
+
+            } 
+
+            textarea{
+                flex: 1;
+                display: block;
+                width: 100%;
+                height: 9rem;
+                border-radius: 0.5rem;
+                padding-left: 1rem;
+                padding-top: 1rem;
+            }
+
+            p{
+                font-size: 1.25rem; 
+                padding-bottom: 0.25rem;
+            }
+
+            .navbar{
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                height: 10%;
+                /* background-color: brown; */
+                align-items: center;
+                justify-content: end;
+                background-color: #aa1221;
+            }
+
+            .navbar-item{
+                flex: 1;
+                display: flex;
+                font-size: 1.5rem;
+                font-weight: 600;
+                justify-content: center;
+            }
+
+            .navbar-item:link, .navbar-item:visited {
+                color: white;
+                text-decoration: none;
+                cursor: auto;
+}
+
+            .navbar-item:hover {
+                 color: #1d797c;
+                 text-decoration: underline;
+                font-size: 1.25rem;
+
+                }
+
+            .navbar-item-row{
+                display: flex;
+                flex-direction: row;
+                width: 50%;
+                align-items: center;
+                margin-right: 1rem;
+                color: white;
+                /* background-color: aquamarine; */
+            }
+
+            .main-button{
+                display: flex;
+                width: 12rem;
+                height: 3.5rem;
+                background-color: #aa1221;
+                border: none;
+                color: white;
+                border-radius: 0.5rem;
+                justify-content: center;
+                align-items: center;
+                text-decoration: none;
+
+            }
+            .register-button{
+                display: flex;
+                flex: 1;
+                align-items: center;
+                justify-content: center;
+                width: 8rem;
+                height: 3.5rem;
+                /* background-color: green; */
+                border: 1.5px solid white;
+                border-radius: 0.5rem;
+                color: white;
+            }
+
+            .register-button:hover {
+                 color: #1d797c;
+
+                border: 1.5px solid #1d797c;
+
+                }
+        </style>
     </head>
     <body>
-        <h1>Confirmation</h1>
-        
-      <p>Your message has been sent successfully!</p>
+        <div class="navbar">
+            <div class="navbar-item-row">
+              <a class="navbar-item">Home</a>
+              <a class="navbar-item">Services</a>
+             <a class="navbar-item">About</a>
+             <a class="navbar-item" href="/">Contact</a>
+             <p class="register-button">Register Here</p>
+            </div>
+         </div>
+         <div class="main-container">
+            <h1>Thank you!</h1>
+            <div style="height: 1.25rem;"></div>
+            <p>A confirmation has been sent to your email.</p>
+            <p>Please feel free to reach out to us if you have any more questions!</p>
+            <div style="height: 1.25rem;"></div>
+            <!-- <button type="button" class="main-button">Back Home</button> -->
+            <a href="/" class="main-button"><p>Contact Us</p></a>
+         </div>
+
     </body>
 </html>

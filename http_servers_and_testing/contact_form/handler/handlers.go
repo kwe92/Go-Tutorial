@@ -54,7 +54,7 @@ func Confirmation(c *gin.Context) {
 	render(c.Writer, "http_servers_and_testing/contact_form/templates/confirmation.html", nil)
 }
 
-// render: Renders the specified HTML document to the client.
+// render: Renders the specified HTML document to the client dynamically changing template data if passed in.
 func render(w http.ResponseWriter, filename string, data interface{}) {
 
 	// create new template
@@ -67,7 +67,7 @@ func render(w http.ResponseWriter, filename string, data interface{}) {
 	}
 
 	if err := tmpl.Execute(w, data); err != nil {
-		log.Printf("render: error when attempting to Execute teplate| error: %s", err.Error())
+		log.Printf("render: error when attempting to Execute teplate | error: %s", err.Error())
 		http.Error(w, "something went wrong when attempting to render template. ", http.StatusInternalServerError)
 		return
 	}
@@ -92,6 +92,12 @@ func render(w http.ResponseWriter, filename string, data interface{}) {
 //   - data can be validated and sanitized before being processed into an HTML template
 
 //   - granular control over dynamic HTML output
+
+// Retrieving Form Values With Gin Context
+
+//  - the Request object has a FormValue function
+
+//  - use the FormValue to retrieve form values by key from the request
 
 // Summary:
 

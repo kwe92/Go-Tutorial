@@ -8,9 +8,6 @@ import (
 	"time"
 )
 
-// TODO: Review
-
-// try to implement the test by yourself
 func TestTcpServer(t *testing.T) {
 
 	// create a new server
@@ -41,7 +38,7 @@ func TestTcpServer(t *testing.T) {
 		t.Fatalf("error in TestTcpServer: %s", err.Error())
 	}
 
-	expected := fmt.Sprint(string(buff))
+	expected := string(buff)
 
 	actual := string(buff)
 

@@ -9,8 +9,6 @@ import (
 	"syscall"
 )
 
-// TODO: Review
-
 func main() {
 	// create new TCP server
 	server, err := model.NewTcpServer(":8080")

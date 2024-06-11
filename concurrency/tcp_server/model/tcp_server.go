@@ -7,8 +7,6 @@ import (
 	"time"
 )
 
-// TODO: Review
-
 type TcpServer struct {
 	WG         sync.WaitGroup
 	Listener   net.Listener
@@ -80,7 +78,7 @@ func (s *TcpServer) handleConnection(conn net.Conn) {
 
 	if err != nil {
 		fmt.Fprint(conn, "There was an error processing your request.\n")
-
+		return
 	}
 
 	fmt.Fprintf(conn, "ECHO: %s", buff)

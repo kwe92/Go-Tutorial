@@ -7,8 +7,6 @@ import (
 	"time"
 )
 
-// TODO: Review
-
 // Creating a Client Using Sockets
 
 var (
@@ -59,9 +57,11 @@ func main() {
 
 //   - Client needs to know:
 
+// 		 - the protocol used for communication (i.e. TCP or UDP)
+
 //       - the host name (IP address) of the machine
 
-//       - the port number the server is listening on
+//       - the port number the server is listening on\
 
 // Port Numbers Range
 

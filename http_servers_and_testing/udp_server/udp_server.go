@@ -82,12 +82,55 @@ func random(min, max int) int {
 
 }
 
-// TODO: What is UDP?
+// What is UDP?
 
-// TODO: What is a UDP Server?
+//   - a connectionless network communication protocol between a client and a server
 
-// TODO: Explain why UDP methods like conn.WriteToUDP are used instead of conn.Write
+//   - data packets (datagrams) are sent individually with no guarantee of delivery
 
-// TODO: What is ResolveUDPAddr and why do we need it to connect and to listen? TCP only has one mechnism it seems like
+//   - unlike TCP their is no retransmission of lost data packets
 
-// TODO: explain why Local Address and Remote Address are important for UDP
+//   - data packets are also unordered
+
+//   - less reliable but faster than TCP as there is less setup under the hood and no error checking built-in
+
+//   - there is no handshake or acknowledgement process
+
+// When to Use a UDP Server over a TCP Server
+
+//   - DNS lookup used UDP to resolve domain names to IP addresses
+
+//   - Streaming services often use UDP for streaming video and audio
+
+//   - Online gaming
+
+//   - Live streaming
+
+//   - Real time applications
+
+//   - When you need speed over reliable order data transmission
+
+// What is a UDP Server?
+
+//   - a program or process that uses UDP to listen for and respond to requests
+//     over a specified port from clients providing them some service
+
+// How UDP Servers Work
+
+//   - socket createion and port binding
+
+//   - continously wait (infinite loop e.g. while loop) for incoming client UDP datagrams (packets)
+
+//   - receive and process incoming datagram packets
+
+//   - optionally send a response to the client
+
+// Explain why Local and Remote Addresses are Handled Differently for UDP vs TCP
+
+//   - UDP is a connectionless network communication protocol were datagrams (individual packets of data)
+//     are sent and recieved over
+
+//   - do to its connectionless nature UDP datagrams require both local and remote addresses
+//     so the datagram knowns where it came from and who its going to
+
+//   - with a TCP connection local and remote addresses are used to establish and maintain a connection

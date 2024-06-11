@@ -9,8 +9,6 @@ import (
 	"time"
 )
 
-// TODO: Review
-
 // NON-CONCURRENT TCP SERVER
 
 func main() {

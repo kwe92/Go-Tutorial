@@ -8,8 +8,6 @@ import (
 	"strings"
 )
 
-// TODO: Review
-
 func main() {
 	// received command line arguments
 	arguments := os.Args

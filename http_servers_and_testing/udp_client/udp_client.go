@@ -8,10 +8,6 @@ import (
 	"strings"
 )
 
-// TODO: review
-
-// TODO: Add comments
-
 var (
 	PROTOCOL = "udp4"
 )
@@ -26,8 +22,10 @@ func main() {
 
 	ADDRESS := arguments[1]
 
+	// resolve the UPD address before sending request
 	server, err := net.ResolveUDPAddr(PROTOCOL, ADDRESS)
 
+	// create a UPD socket and establish a connection
 	conn, err := net.DialUDP(PROTOCOL, nil, server)
 
 	if err != nil {
@@ -79,4 +77,20 @@ func main() {
 
 }
 
-// TODO: What is a UDP Client?
+// What is a UDP Client?
+
+//   - A program or process that uses the UDP to communicate with a UDP server sending a request
+
+//   - Sends data packets over UDP
+
+// What a UDP Client Does
+
+//   - create a UDP socket as an endpoint for sending and recieving data packets
+
+//   - Use the predetermined server address to communicate with
+
+//   - Sends data as UDP packets to the server address
+
+//   - receive responses
+
+//   - handles packet loss

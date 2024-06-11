@@ -69,7 +69,7 @@ func handleClientConnection(ClientConn net.Conn) {
 
 //   - a connection based protocol used to server consistant reliable ordered communication between two programs
 
-//   - built in error handling to ensure all data that was sent was recieved
+//   - built in error handling to ensure all data that was sent is recieved
 
 // TCP Server
 
@@ -80,6 +80,8 @@ func handleClientConnection(ClientConn net.Conn) {
 //   - depending on the type of request the server responds accordingly (this is where route handling becomes useful)
 
 //   - the server typically maintains and closes the connections (socket) when communication is finished
+
+//   - a handshake happens between the client and the server to establish connection management (reliable data delivery, error detection, etc)
 
 // What is a Socket?
 
@@ -99,7 +101,11 @@ func handleClientConnection(ClientConn net.Conn) {
 
 //       - Port number: Specifies the specific application or service on that device.
 
-//       - Protocol: Defines the rules of communication (e.g., TCP (ordered, reliable, consistent, and connection oriented) or UDP (unreliable, potentially unordered, sent in packets that can droped, connectionless)).
+//       - Protocol: Defines the rules of communication
+
+// 		     - TCP (ordered, reliable, consistent, and connection oriented)
+
+// 		     - UDP (unreliable, potentially unordered, sent in packets that can droped, connectionless)
 
 // How Sockets Work
 
@@ -125,21 +131,21 @@ func handleClientConnection(ClientConn net.Conn) {
 
 //   - Closing Sockets
 
-//       - when the communication between both parties is finished sockets should be closed as to not leak resources
+//       - when the communication between both parties is finished sockets should be closed to prevent resource leakage
 
 // Ports vs Sockets:
 
 //   - Purpose:
 
-//       - Ports: identify applications
+//       - Ports: identify applications on a machine
 
 //       - Sockets: enable communication between applications
 
 //   - Type:
 
-//       - Ports: are numerical identifiers
+//       - Ports: are uint16, i.e. numerical identifiers
 
-//       - Sockets: are complex structures with multiple elements
+//       - Sockets: are complex structures with multiple elements (protocol, IP address, port number)
 
 //   - Scope:
 
@@ -149,7 +155,7 @@ func handleClientConnection(ClientConn net.Conn) {
 
 // Identifying TCP Connections
 
-//   - a TCP connection can be uniquely identified by
+//   - a TCP connection can be uniquely identified by the portocol specified and
 //     the composition of its two endpoints i.e. IP address and port number
 
 // Building powerful network applications with socket programming and the Client-Server Model
@@ -160,11 +166,11 @@ func handleClientConnection(ClientConn net.Conn) {
 
 //   - servers run on a specific machine identified by its hostname / ip address
 
-//   - sockets are then bound to a port number specified by some listener or mux implementation
+//   - sockets are then bound to an IP address and port number specified by some listener or mux implementation
 
 //   - servers listen to the socket for incoming connection requests from clients
 
-//   - the server then determines how to deal with the request
+//   - the server then determines how to deal with the request (this is were routing becomes important)
 
 //   - if a server accepts a clients request to connect then a new socket is bound to the same
 //     local port as the client requesting services
@@ -180,5 +186,3 @@ func handleClientConnection(ClientConn net.Conn) {
 
 //   - clients use the services provided by a server to display information to the user
 //     be it some successful indication of an action or changing some mutable state on the client side
-
-// ? What Are The Component Parts That Allow A Client and a Server to Communicate?

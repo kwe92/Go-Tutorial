@@ -92,6 +92,8 @@ use ./concurrency/channels/closing_channels/closing_channels00
 
 use ./concurrency/examples/image_download
 
+use ./concurrency/tcp_server
+
 use ./external_packages
 
 use ./multi_module/greetings
@@ -128,7 +130,7 @@ use ./http_servers_and_testing/http_handlers_and_logs00
 
 use ./http_servers_and_testing/middleware_and_handlers00
 
-use ./http_servers_and_testing/tcp_server
+use ./http_servers_and_testing/contact_form/
 
 use ./random_exploration
 

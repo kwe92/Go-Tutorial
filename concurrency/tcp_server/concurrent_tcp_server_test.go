@@ -1,17 +1,17 @@
 package main
 
 import (
+	"concurrent_tcp_server/model"
 	"fmt"
 	"net"
 	"testing"
 	"time"
 )
 
-// try to implement the test by yourself
 func TestTcpServer(t *testing.T) {
 
 	// create a new server
-	testServer, err := NewTcpServer(":8080")
+	testServer, err := model.NewTcpServer(":8080")
 
 	clientMsg := "this is a test"
 
@@ -38,7 +38,7 @@ func TestTcpServer(t *testing.T) {
 		t.Fatalf("error in TestTcpServer: %s", err.Error())
 	}
 
-	expected := fmt.Sprint(string(buff))
+	expected := string(buff)
 
 	actual := string(buff)
 

@@ -57,10 +57,16 @@ func main() {
 
 //   - Client needs to know:
 
+// 		 - the protocol used for communication (i.e. TCP or UDP)
+
 //       - the host name (IP address) of the machine
 
-//       - the port number the server is listening on
+//       - the port number the server is listening on\
 
 // Port Numbers Range
 
-//   - ports are in the range of uint16, a sub-set of whole numbers ranging from 0 to 65,535
+//   - ports are in the range of uint16, a sub-set of whole numbers ranging from 0 to 65,535 i.e. 2 ** 16
+
+// TCP Client Side:
+
+//   - writes to the TCP Server and then waits for a response

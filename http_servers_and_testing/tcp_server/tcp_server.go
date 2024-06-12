@@ -25,7 +25,7 @@ func main() {
 
 	fmt.Printf("TCP server started successfully, listening on port %s\n", PORT)
 
-	// run server in infinite while loop
+	// run server in infinite while loop / start server
 	for {
 
 		// accept incoming client connection
@@ -51,7 +51,7 @@ func handleClientConnection(ClientConn net.Conn) {
 	// create a buffer to read incoming data
 	buff := make([]byte, 1024)
 
-	// socket input stream
+	// socket input stream / read incoming request data
 	_, err := ClientConn.Read(buff)
 
 	if err != nil {
@@ -64,6 +64,24 @@ func handleClientConnection(ClientConn net.Conn) {
 	// socket output stream
 	ClientConn.Write([]byte(fmt.Sprintf("ECHO: %s", string(buff))))
 }
+
+// Transmissino Control Protocol
+
+//   - a connection based protocol used to server consistant reliable ordered communication between two programs
+
+//   - built in error handling to ensure all data that was sent is recieved
+
+// TCP Server
+
+//   - Listens for incoming TCP connection requests (from clients)
+
+//   - upon recieving a request a connection to the client is established through a communication channel (stream)
+
+//   - depending on the type of request the server responds accordingly (this is where route handling becomes useful)
+
+//   - the server typically maintains and closes the connections (socket) when communication is finished
+
+//   - a handshake happens between the client and the server to establish connection management (reliable data delivery, error detection, etc)
 
 // What is a Socket?
 
@@ -83,7 +101,11 @@ func handleClientConnection(ClientConn net.Conn) {
 
 //       - Port number: Specifies the specific application or service on that device.
 
-//       - Protocol: Defines the rules of communication (e.g., TCP (ordered, reliable, consistent, and connection oriented) or UDP (unreliable, potentially unordered, sent in packets that can droped, connectionless)).
+//       - Protocol: Defines the rules of communication
+
+// 		     - TCP (ordered, reliable, consistent, and connection oriented)
+
+// 		     - UDP (unreliable, potentially unordered, sent in packets that can droped, connectionless)
 
 // How Sockets Work
 
@@ -93,7 +115,7 @@ func handleClientConnection(ClientConn net.Conn) {
 
 //   - Binding
 
-//       - a socket is bound to a specified port and IP address an the machine in which it was created
+//       - a socket is bound to a specified port and IP address on the machine in which it was created
 
 //   - Connecting TCP Sockets
 
@@ -109,61 +131,58 @@ func handleClientConnection(ClientConn net.Conn) {
 
 //   - Closing Sockets
 
-//       - when the communication between both parties is finished sockets should be closed as to not leak resources
+//       - when the communication between both parties is finished sockets should be closed to prevent resource leakage
 
 // Ports vs Sockets:
 
 //   - Purpose:
 
-//       - Ports identify applications
+//       - Ports: identify applications on a machine
 
-//       - Sockets enable communication between applications
+//       - Sockets: enable communication between applications
 
 //   - Type:
 
-//       - Ports are numerical identifiers
+//       - Ports: are uint16, i.e. numerical identifiers
 
-//       - Sockets are complex structures with multiple elements
+//       - Sockets: are complex structures with multiple elements (protocol, IP address, port number)
 
 //   - Scope:
 
-//       - Ports are local to a computer
+//       - Ports: are local to a computer
 
-//       - Sockets involve two endpoints on potentially different devices
+//       - Sockets: involve two endpoints on potentially different devices
 
 // Identifying TCP Connections
 
-//   - a TCP connection can be uniquely identified by
-//   - the composition of its two endpoints i.e. IP address and port number
+//   - a TCP connection can be uniquely identified by the portocol specified and
+//     the composition of its two endpoints i.e. IP address and port number
 
-// Socket programming is an important skill for network programming
+// Building powerful network applications with socket programming and the Client-Server Model
 
-// building powerful network applications with socket programming and the Client-Server Model
+//   - socket programming is an important skill for network programming
 
 // Server Side Socket Binding
 
-//   - servers run on a specific machine identified by its host name
+//   - servers run on a specific machine identified by its hostname / ip address
 
-//   - sockets are then bound to a port number specified by some listener or mux implementation
+//   - sockets are then bound to an IP address and port number specified by some listener or mux implementation
 
 //   - servers listen to the socket for incoming connection requests from clients
 
-//   - the server then determines how to deal with the request
+//   - the server then determines how to deal with the request (this is were routing becomes important)
 
 //   - if a server accepts a clients request to connect then a new socket is bound to the same
 //     local port as the client requesting services
 
 //   - the remote endpoint (socket) is set to the IP address and port of the client
 
-// TODO: this can definitely be worded better
-
 //   - the afromentioned process allows servers to concurrently process requests by always listen for incoming client
 //     requests to connect on the original listening socket
 
 // Client Server Applications
 
-//   - servers provided a service such as processing database queries or transmitting real time information
+//   - servers provided a service such as processing database queries or transmitting real-time information
 
-//   - clients use the services provided by a server to display information to the user, be it some successful indication of an action or changing some mutable state on the client side
-
-// ? What Are The Component Parts That Allow A Client and a Server to Communicate?
+//   - clients use the services provided by a server to display information to the user
+//     be it some successful indication of an action or changing some mutable state on the client side

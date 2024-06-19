@@ -1,20 +1,67 @@
 package main
 
 import (
+	"fmt"
+	"io"
 	"log"
 	"os"
+	"time"
 )
 
-func main() {
-	sourceFilePath := "io_streams/byte_streams/xanadu.txt"
+// TODO: review an refactor comments
 
-	inputSourceFile, err := os.Open(sourceFilePath)
+func main() {
+	// path to source file
+	sourceFilePath := "io_streams/source_data/xanadu.txt"
+
+	destinationFilePath := "io_streams/byte_streams/output.txt"
+
+	// open input source file for reading returning an os.File object
+	in, err := os.Open(sourceFilePath)
 
 	if err != nil {
 		log.Fatalf("Error opening source file: %s", sourceFilePath)
 	}
+	// close the file stream to prevent resource leakage
+	defer in.Close()
 
-	defer inputSourceFile.Close()
+	// create output destination file if it does not exist, truncate the file if it does exist
+	out, err := os.Create(destinationFilePath)
+
+	if err != nil {
+		log.Fatalf("Error creating destination file: %s", sourceFilePath)
+	}
+
+	// close the file stream to prevent resource leakage
+	defer out.Close()
+
+	// allocate byte chunk size, in this case we are reading 1 byte at a time where each byte represents is a utf-8 character
+	byteSlice := make([]byte, 10)
+
+	for {
+
+		// read data from input file stream into byte slice
+		n, err := in.Read(byteSlice)
+
+		// break out of the loop if the end of the file is reached
+		if err == io.EOF {
+			break
+		}
+
+		if err != nil {
+			log.Fatalf("Error reading source file: %s", sourceFilePath)
+		}
+
+		fmt.Printf("n = %v err = %v b = %v\n", n, err, byteSlice)
+
+		fmt.Printf("b = %q\n", byteSlice[:n])
+
+		time.Sleep(500 * time.Millisecond)
+
+		// write data to the destination file stream
+		out.Write(byteSlice[:n])
+
+	}
 
 }
 

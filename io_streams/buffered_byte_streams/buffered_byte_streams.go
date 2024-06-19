@@ -50,24 +50,28 @@ func main() {
 		line, err := bufIn.ReadString('\n')
 
 		// if we reach the end of the file write the final line
-		if err == io.EOF {
+		switch {
+		case err == io.EOF:
 			_, err := bufOut.WriteString(line)
 
 			if err != nil {
 				log.Fatalln(err.Error())
-				break
+				continue
 			}
 
 			fmt.Println(line)
 
+			// write data from output internal buffer to output destination
+			bufOut.Flush()
+
 			fmt.Println("File copied successfully!")
 
-			break
-		}
+			return
 
-		if err != nil {
+		case err != nil:
 			log.Fatalln(err.Error())
 		}
+
 		// write line to output buffer
 		_, err = bufOut.WriteString(line)
 
@@ -77,14 +81,13 @@ func main() {
 
 		fmt.Println(line)
 	}
-	// write data from output internal buffer to output destination
-	bufOut.Flush()
 
 }
 
 // Buffered Byte Streams
 
-//   - a wrapper around the io.Reader and io.Writer interfaces that add an intermediate internal buffer
+//   - a wrapper around the io.Reader and io.Writer interfaces that add an intermediate internal temporary buffer in memory
+//     and optimizes performance of file I/O and network operations
 
 //   - bufio.Reader and bufio.Writer also have additional helper methods such as ReadSring and WriteString
 
@@ -109,6 +112,13 @@ func main() {
 
 //   - Performance Improvement
 
-//       ~ reduction in the amount of system calls made to the underlying byte stream (e.g. file or network socket) by batching operations
+//       ~ reduction in the amount of system calls (random access operations) made to the underlying byte stream (e.g. file or network socket) by batching operations
 
-//       ~
+//       ~ the reduction in system csalls also increases data locality
+
+//       ~ buffered readers can pre-fetch data making read operations faster
+
+//       ~ buffered writers can buffer data before writing to the file, reducing the number of disk writes
+//         this is why flushing is required when working with buffered byte streams
+
+//       ~ custimizable buffer size when creating bufio.Reader and bufio.Writer

@@ -1,5 +1,3 @@
-//  TODO: Edit Comments
-
 package main
 
 import (
@@ -8,6 +6,8 @@ import (
 	"io"
 	"os"
 )
+
+// TODO: add better comments maybe break aprt into modules
 
 func main() {
 
@@ -53,6 +53,9 @@ func main() {
 	file, err := os.Open(someFile)
 
 	checkError(err)
+
+	// close the file when you are done
+	defer file.Close()
 
 	// allocate and initialize Slice of bytes with a size of 8
 
@@ -115,9 +118,6 @@ func main() {
 	b3, err := reader.Peek(6)
 
 	fmt.Printf("6 bytes: %s\n", bytesToString(b3))
-
-	// close the file when you are done
-	file.Close()
 
 }
 

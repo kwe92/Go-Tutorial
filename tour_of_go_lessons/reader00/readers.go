@@ -31,8 +31,8 @@ func main() {
 
 // Read Method | Read(p []byte) (n int, err error)
 
-//   - reads up to the lenth of `p` bytes into `p`
+//   - reads up to the lenth of `p` bytes into the provided byte slice `p`
 //   - where `p` is a Slice of bytes of some length greater than 0 initialized with zero-values
 //   - the variable `p` is usually implemented as `b`
-//   - returns the number of bytes read and any error encountered
-//   - once the stream of bytes is completly read the io.EOF `End of File` error is returned
+//   - returns the number of bytes read `n` and any error encountered
+//   - once the stream of bytes is completely read the io.EOF `End of File` error is returned

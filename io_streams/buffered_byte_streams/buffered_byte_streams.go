@@ -93,6 +93,10 @@ func main() {
 
 // How Buffered Byte Streams Work Under The Hood
 
+//   - Convert Unbuffered Streams to Buffered Streams
+
+//       ~ unbuffered byte streams are passed to the buffered streams to be wrapped
+
 //   - Internal Buffer:
 
 //       ~ both the bufio.Reader and bufio.Writer are created with an internal default buffer
@@ -106,13 +110,18 @@ func main() {
 
 //       ~ when data is written to a buffered byte stream the data is stored in the buffer and will not be written to the output destination
 
-//       ~ the output destination byte stream is written to only when the buffer is filled or the buffer is explicitly flushed
+//   - Flushing Buffered Output Streams
+
+//       ~ flushing is the process of writing data from an output buffer to its destination
+
+//       ~ flushing can occur under two conditions in GO, when the buffer is filled or the buffer is explicitly flushed with its flush method
 
 // Why Use Buffered Byte Streams
 
 //   - Performance Improvement
 
 //       ~ reduction in the amount of system calls (random access operations) made to the underlying byte stream (e.g. file or network socket) by batching operations
+//         leading to a reduction in network calls and operating system reading and writing data to disk when is typically expensive
 
 //       ~ the reduction in system csalls also increases data locality
 
